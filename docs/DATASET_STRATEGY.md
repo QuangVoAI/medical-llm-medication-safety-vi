@@ -60,6 +60,19 @@ Vai trò:
 
 Đây là phần quan trọng nhất để DPO có tín hiệu safety rõ.
 
+### Giới hạn hiện tại của dataset
+
+Dataset hiện vẫn là **demo-scale dataset**, không phải production dataset:
+
+- tổng số dòng tăng lên nhờ augmentation và repetition từ seed set nhỏ;
+- seed/informal variants chiếm tỷ lệ lớn để ép hành vi safety rõ trong demo;
+- DPO pairs lặp lại theo taxonomy để minh họa alignment, chưa phải preference data được annotate bởi chuyên gia;
+- chưa có bác sĩ/dược sĩ kiểm định toàn bộ câu trả lời.
+
+Khi trình bày nên nói thẳng:
+
+> Dataset của em là demo-scale. Em dùng Meddies và MedLens làm nguồn mở nền, sau đó tạo seed safety tiếng Việt và informal augmentation để mô phỏng cách người Việt hỏi thật. Mục tiêu là chứng minh pipeline SFT/DPO và safety evaluation, không claim đây là production dataset.
+
 ## Format SFT
 
 Mỗi dòng JSONL:

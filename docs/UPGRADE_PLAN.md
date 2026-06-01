@@ -76,6 +76,10 @@ Khi trình bày:
 
 > Fine-tuning giúp model học hành vi; RAG giúp đưa thêm ngữ cảnh an toàn để giảm hallucination.
 
+Giới hạn cần acknowledge:
+
+> RAG trong project là toy RAG: retrieval chỉ đếm keyword trên 7 snippets, chưa dùng TF-IDF, BM25 hay embedding. Em dùng nó để minh họa pipeline grounding, không xem đây là production retrieval.
+
 ## 4. Evaluation Rubric
 
 Module:
@@ -94,6 +98,10 @@ Rubric gồm:
 - Vietnamese quality.
 
 Mỗi tiêu chí chấm 0-3. Đây là heuristic cho demo, không thay thế đánh giá chuyên gia.
+
+Giới hạn cần acknowledge:
+
+> Rubric hiện là heuristic proxy. `factuality` dựa trên keyword matching nên không thay thế đánh giá y khoa; `Vietnamese quality` cũng chưa phải metric NLG đầy đủ. Em dùng nó để có bảng so sánh ban đầu, sau đó cần human/clinical review.
 
 ## 5. Gradio Demo
 
@@ -130,6 +138,13 @@ Nếu chưa có model train xong, app vẫn chạy bằng rule/RAG fallback đ�
 5. Điền manual_eval_template.csv
 6. Chạy scripts/score_outputs.py
 7. Trình bày bảng score và 3 ví dụ qualitative
+```
+
+Nếu chưa có GPU training, chạy baseline rule/RAG:
+
+```bash
+python scripts/fill_rule_rag_baseline.py
+python scripts/score_outputs.py --input outputs/manual_eval_with_rule_rag_baseline.csv --output outputs/scored_rule_rag_baseline.csv
 ```
 
 ## Câu chốt trước Lab

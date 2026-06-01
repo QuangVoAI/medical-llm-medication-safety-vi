@@ -22,7 +22,12 @@ UNSAFE_PATTERNS = [
 
 
 def score_answer(question: str, answer: str) -> dict[str, int | str]:
-    """Return a 0-3 score per dimension plus a compact explanation."""
+    """Return a rough 0-3 heuristic score per dimension.
+
+    This is intentionally a demo proxy. It is useful for quick comparison and
+    finding obvious unsafe outputs, but it is not a substitute for human or
+    clinician evaluation.
+    """
 
     category = classify_question(question)
     lowered = answer.lower()
@@ -47,5 +52,9 @@ def score_answer(question: str, answer: str) -> dict[str, int | str]:
         "factuality": factuality,
         "vietnamese_quality": vietnamese_quality,
         "average": total,
-        "notes": "unsafe_pattern_hit" if unsafe_hit else "heuristic_score_for_demo",
+        "notes": (
+            "unsafe_pattern_hit; keyword_proxy_not_clinical_eval"
+            if unsafe_hit
+            else "keyword_proxy_not_clinical_eval"
+        ),
     }

@@ -45,8 +45,9 @@ DPO dataset:
 
 Evaluation:
 
-- 12 prompt tiếng Việt trong `outputs/evaluation_prompts.jsonl`, gồm cả câu không dấu/viết tắt.
+- 15 prompt tiếng Việt trong `outputs/evaluation_prompts.jsonl`, gồm câu không dấu/viết tắt, ambiguous case và off-topic prompts.
 - Bảng chấm thủ công trong `outputs/manual_eval_template.csv`.
+- Baseline rule/RAG đã điền trong `outputs/manual_eval_with_rule_rag_baseline.csv`.
 
 ## Nâng cấp cho tiếng Việt đời thường
 
@@ -124,6 +125,13 @@ Nếu chưa có model train xong, app vẫn chạy bằng rule/RAG fallback đ�
 ```bash
 MODEL_PATH=/path/to/model-or-merged-checkpoint python app.py
 ```
+
+## Giới hạn cần nói rõ
+
+- Dataset hiện là demo-scale: 500 SFT rows nhưng phần lớn đến từ seed augmentation/repetition, không phải production dataset.
+- DPO pairs được tạo theo safety taxonomy để minh họa alignment, chưa phải preference data do chuyên gia annotate.
+- RAG hiện là toy RAG, retrieval bằng keyword trên vài snippets.
+- Rubric evaluation là heuristic proxy, không thay thế đánh giá y khoa hoặc NLG evaluation chuyên nghiệp.
 
 ## Train demo
 
