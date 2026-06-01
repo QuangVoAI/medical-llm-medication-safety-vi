@@ -1,0 +1,294 @@
+[
+  {
+    "title": "ACE inhibitor và Potassium",
+    "keywords": ["ace inhibitor", "lisinopril", "enalapril", "kali", "potassium", "cao"],
+    "content": "ACE inhibitor có thể làm tăng kali huyết; khi dùng cần giám sát kali định kỳ, tránh bổ sung kali quá mức.",
+    "action": "Kiểm tra kali máu mỗi 1-3 tháng; báo ngay với bác sĩ nếu kali cao.",
+    "source": "WHO/FDA Drug Interactions Database",
+    "category": "drug_interaction",
+    "severity": "high",
+    "notes": "Đặc biệt nguy hiểm ở bệnh nhân suy thận"
+  },
+  {
+    "title": "NSAIDs và bệnh tim mạch",
+    "keywords": ["nsaid", "ibuprofen", "aspirin", "tim mạch", "tim mach", "nhồi máu"],
+    "content": "NSAIDs dùng lâu dài tăng nguy cơ nhồi máu, đột quỵ, suy tim ở người có bệnh tim.",
+    "action": "Dùng liều thấp nhất trong thời gian ngắn; báo ngay bệnh tim cho bác sĩ.",
+    "source": "ACC/AHA Guidelines on Cardiovascular Risk",
+    "category": "drug_interaction",
+    "severity": "high",
+    "notes": "Cần cân nhắc lợi ích vs rủi ro"
+  },
+  {
+    "title": "Cephalosporin và bệnh thận",
+    "keywords": ["cephalosporin", "cephalexin", "thận", "than", "clearance", "creatinine"],
+    "content": "Cephalosporin bị thải qua thận; bệnh nhân suy thận có thể tích tụ thuốc.",
+    "action": "Kiểm tra creatinine trước khi dùng; điều chỉnh liều theo eGFR.",
+    "source": "Kidney Disease Guidelines (KDIGO)",
+    "category": "special_population",
+    "severity": "high",
+    "notes": ""
+  },
+  {
+    "title": "Fluconazole và Warfarin",
+    "keywords": ["fluconazole", "warfarin", "chống đông", "chong dong", "inr"],
+    "content": "Fluconazole ức chế CYP2C9, làm tăng INR; nguy cơ chảy máu.",
+    "action": "Giám sát INR thường xuyên; có thể cần giảm warfarin.",
+    "source": "Cytochrome P450 Interactions Database",
+    "category": "drug_interaction",
+    "severity": "high",
+    "notes": "Cần 3-7 ngày để đạt trạng thái ổn định INR mới"
+  },
+  {
+    "title": "Simvastatin và Grapefruit juice",
+    "keywords": ["simvastatin", "statin", "grapefruit", "nước bưởi", "nuoc buoi"],
+    "content": "Grapefruit ức chế CYP3A4, làm tăng mức simvastatin, nguy cơ viêm cơ.",
+    "action": "Tránh grapefruit; chọn statin khác nếu cần uống grapefruit.",
+    "source": "FDA Drug Interactions",
+    "category": "drug_interaction",
+    "severity": "medium",
+    "notes": "Ảnh hưởng kéo dài 24h sau uống grapefruit"
+  },
+  {
+    "title": "Erythromycin và QT prolongation",
+    "keywords": ["erythromycin", "clarithromycin", "qt", "tim", "tim", "rhythm"],
+    "content": "Macrolide antibiotics có thể kéo dài QT, gây rối loạn nhịp tim.",
+    "action": "Báo với bác sĩ nếu có tiền sử rối loạn nhịp; tránh nếu QT dài sẵn.",
+    "source": "Cardiac Arrhythmia Guidelines",
+    "category": "safety",
+    "severity": "high",
+    "notes": "Risk cao hơn nếu dùng cùng các thuốc khác kéo dài QT"
+  },
+  {
+    "title": "Ritonavir và nhiều tương tác",
+    "keywords": ["ritonavir", "hiv", "boost", "boosted", "tương tác", "tuong tac"],
+    "content": "Ritonavir là ức chế CYP3A4 mạnh; tương tác với rất nhiều thuốc, làm tăng mức độc tính.",
+    "action": "Kiểm tra toàn bộ danh sách thuốc hiện tại với bác sĩ/dược sĩ.",
+    "source": "HIV Medication Database",
+    "category": "drug_interaction",
+    "severity": "high",
+    "notes": "Hơn 1000 tương tác tiềm ẩn được ghi nhận"
+  },
+  {
+    "title": "Phenytoin và tương tác phức tạp",
+    "keywords": ["phenytoin", "kytril", "dilantin", "co giật", "co giat", "tương tác"],
+    "content": "Phenytoin là inducer mạnh của CYP450; làm giảm hiệu quả nhiều thuốc khác.",
+    "action": "Kiểm tra danh sách thuốc đang uống; có thể cần tăng liều hoặc chuyển thuốc.",
+    "source": "Seizure Management Guidelines",
+    "category": "drug_interaction",
+    "severity": "high",
+    "notes": ""
+  },
+
+  {
+    "title": "Hướng dẫn xử trí tăng huyết áp từ Bộ Y Tế",
+    "keywords": ["tăng huyết áp", "tang huyet ap", "huyết áp cao", "hypertension", "chẩn đoán", "chan doan"],
+    "content": "Tăng huyết áp được định nghĩa là ≥140/90 mmHg; cần đo lại 3 lần trong 1-4 tuần để chẩn đoán. Thay đổi lối sống là bước đầu tiên.",
+    "action": "Đo huyết áp đúng kỹ thuật; theo dõi tại nhà; báo cáo với bác sĩ.",
+    "source": "Bộ Y Tế Việt Nam - Hướng Dẫn Chẩn Đoán Điều Trị Tăng Huyết Áp",
+    "category": "dosing",
+    "severity": "high",
+    "notes": "Tuân theo định nghĩa chuẩn Bộ Y Tế"
+  },
+  {
+    "title": "Xử trí bệnh tiểu đường type 2 tại Việt Nam",
+    "keywords": ["tiểu đường", "tieu duong", "type 2", "glucose", "đường huyết", "duong huyet"],
+    "content": "Mục tiêu kiểm soát glucose: lúc đói 6.1-7.0 mmol/L; sau ăn <10 mmol/L; HbA1c <7%. Cần giáo dục bệnh nhân về ăn uống, tập luyện.",
+    "action": "Kiểm tra glucose định kỳ; học về dinh dưỡng; tập thể dục 150 phút/tuần.",
+    "source": "Bộ Y Tế Việt Nam - Hướng Dẫn Quản Lý Tiểu Đường Type 2",
+    "category": "dosing",
+    "severity": "high",
+    "notes": ""
+  },
+  {
+    "title": "Phòng chống nhiễm trùng bằng kháng sinh hợp lý",
+    "keywords": ["kháng sinh", "khang sinh", "nhiễm trùng", "nhiem trung", "hợp lý", "hop ly"],
+    "content": "Sử dụng kháng sinh chỉ khi có chỉ định, đúng liều, đúng thời gian. Tránh lạm dụng kháng sinh để phòng ngừa kháng kháng sinh.",
+    "action": "Dùng theo đơn bác sĩ; hoàn thành đủ liệu trình; không chia sẻ kháng sinh với người khác.",
+    "source": "Bộ Y Tế Việt Nam - Chương Trình Phòng Chống Kháng Kháng Sinh",
+    "category": "safety",
+    "severity": "high",
+    "notes": "Công bố từ Cục Y Tế Dự Phòng"
+  },
+  {
+    "title": "Tiêm chủng an toàn tại Việt Nam",
+    "keywords": ["tiêm chủng", "tiem chung", "vaccine", "vacxin", "miễn dịch", "mien dich"],
+    "content": "Tuân thủ lịch tiêm chủng quốc gia; báo cáo phản ứng không mong muốn; không tiêm nếu bệnh nặng.",
+    "action": "Tuân theo lịch Bộ Y Tế; báo cáo tác dụng phụ ngay; giữ thẻ tiêm chủng.",
+    "source": "Bộ Y Tế Việt Nam - Quyết Định Phê Duyệt Lịch Tiêm Chủng",
+    "category": "safety",
+    "severity": "high",
+    "notes": ""
+  },
+  {
+    "title": "Quản lý ung thư tại các bệnh viện Việt Nam",
+    "keywords": ["ung thư", "ung thu", "hóa trị", "hoa tri", "xạ trị", "xa tri"],
+    "content": "Điều trị ung thư cần bác sĩ chuyên khoa; kết hợp phẫu thuật, hóa trị, xạ trị nếu cần. Cần tư vấn về chế độ dinh dưỡng.",
+    "action": "Thăm khám tại bệnh viện ung thư; tuân theo kế hoạch điều trị; báo tác dụng phụ.",
+    "source": "Bộ Y Tế Việt Nam - Hướng Dẫn Chẩn Đoán Điều Trị Ung Thư",
+    "category": "safety",
+    "severity": "high",
+    "notes": ""
+  },
+  {
+    "title": "Sức khỏe tâm thần - Phòng ngừa và điều trị",
+    "keywords": ["tâm thần", "tam than", "trầm cảm", "tram cam", "lo âu", "lo au", "stress"],
+    "content": "Các rối loạn tâm thần cần chẩn đoán từ bác sĩ chuyên khoa; kết hợp tư vấn tâm lý, thuốc, hoạt động thể chất.",
+    "action": "Liên hệ bác sĩ tâm thần; tham gia hoạt động xã hội; tập thiền hoặc yoga.",
+    "source": "Bộ Y Tế Việt Nam - Chiến Lược Sức Khỏe Tâm Thần",
+    "category": "safety",
+    "severity": "high",
+    "notes": ""
+  },
+
+  {
+    "title": "Clopidogrel và Proton Pump Inhibitor",
+    "keywords": ["clopidogrel", "plavix", "omeprazole", "pantoprazole", "nhồi máu"],
+    "content": "PPI ức chế CYP2C19; làm giảm hiệu quả clopidogrel, tăng nguy cơ nhồi máu nút mạch.",
+    "action": "Chọn H2-blocker thay vì PPI nếu cần; hoặc giãn cách 12-24 giờ.",
+    "source": "FDA Black Box Warning on Clopidogrel-PPI Interaction",
+    "category": "drug_interaction",
+    "severity": "high",
+    "notes": ""
+  },
+  {
+    "title": "Digoxin và thuốc làm tăng kali",
+    "keywords": ["digoxin", "lanoxin", "tim", "kali", "potassium", "ACE inhibitor"],
+    "content": "Kali cao làm tăng độc tính của digoxin; gây rối loạn nhịp tim nguy hiểm.",
+    "action": "Kiểm tra kali huyết thường xuyên; giám sát nhịp tim; báo tác dụng phụ.",
+    "source": "Digoxin Drug Safety Database",
+    "category": "drug_interaction",
+    "severity": "high",
+    "notes": "Digoxin có cửa sổ liệu pháp hẹp"
+  },
+  {
+    "title": "Dabigatran và H2-blocker/PPI",
+    "keywords": ["dabigatran", "pradaxa", "chống đông", "chong dong", "omeprazole", "pantoprazole"],
+    "content": "PPI giảm hấp thu dabigatran; H2-blocker cũng có tác động. Có thể cần chuyển sang anticoagulant khác.",
+    "action": "Báo với bác sĩ nếu dùng PPI; có thể cần thay thuốc chống đông.",
+    "source": "FDA Drug Interactions on Dabigatran",
+    "category": "drug_interaction",
+    "severity": "high",
+    "notes": ""
+  },
+  {
+    "title": "Quinolone và tất cả các tương tác",
+    "keywords": ["quinolone", "levofloxacin", "ciprofloxacin", "nsaid", "co giật", "co giat"],
+    "content": "Quinolone + NSAID tăng nguy cơ co giật; kết hợp với theophylline tăng độc tính.",
+    "action": "Tránh NSAID; báo các thuốc đang dùng; cảnh báo dấu hiệu co giật.",
+    "source": "Quinolone Safety Information - FDA",
+    "category": "drug_interaction",
+    "severity": "high",
+    "notes": ""
+  },
+  {
+    "title": "Statin và fibrate",
+    "keywords": ["statin", "fibrate", "lipid", "lipidemia", "cơ", "co", "viêm cơ"],
+    "content": "Kết hợp statin + fibrate tăng nguy cơ rhabdomyolysis (viêm cơ nặng). Cần theo dõi CK huyết.",
+    "action": "Chỉ dùng cùng nếu cần; kiểm tra CK máu; báo yếu cơ, nước tiểu sẫm.",
+    "source": "Statin-Fibrate Combination Guidelines",
+    "category": "drug_interaction",
+    "severity": "high",
+    "notes": ""
+  },
+  {
+    "title": "Methotrexate và NSAIDs",
+    "keywords": ["methotrexate", "nsaid", "thận", "than", "độc tính", "doc tính"],
+    "content": "NSAIDs giảm thải methotrexate qua thận; tăng độc tính, đặc biệt ở bệnh nhân suy thận.",
+    "action": "Tránh NSAIDs; dùng acetaminophen thay thế; kiểm tra thận.",
+    "source": "Methotrexate Drug Interactions",
+    "category": "drug_interaction",
+    "severity": "high",
+    "notes": ""
+  },
+  {
+    "title": "Phenytoin và tương tác phức tạp (mở rộng)",
+    "keywords": ["phenytoin", "inducer", "cyp450", "warfarin", "oral contraceptive", "contraceptive"],
+    "content": "Phenytoin induces CYP3A4, CYP2C9, CYP2C19; làm giảm hiệu quả warfarin, oral contraceptive, thành phần khác.",
+    "action": "Tăng liều warfarin; chuyển sang contraceptive khác; giám sát chặt chẽ.",
+    "source": "Phenytoin Drug Interactions Database",
+    "category": "drug_interaction",
+    "severity": "high",
+    "notes": ""
+  },
+  {
+    "title": "Amiodarone - ức chế CYP3A4 mạnh",
+    "keywords": ["amiodarone", "cordarone", "tim", "nhịp tim", "arrhythmia", "warfarin"],
+    "content": "Amiodarone ức chế CYP3A4 rất mạnh; tương tác với warfarin, digoxin, statins. Cần theo dõi chặt chẽ.",
+    "action": "Kiểm tra INR thường xuyên; cân nhắc giảm liều warfarin; giám sát digoxin.",
+    "source": "Amiodarone Safety Guidelines - ACC/AHA",
+    "category": "drug_interaction",
+    "severity": "high",
+    "notes": ""
+  },
+  {
+    "title": "Antithyroid + Anticoagulant",
+    "keywords": ["antithyroid", "methimazole", "warfarin", "chống đông", "chong dong", "thrombus"],
+    "content": "Bệnh Graves/hyperthyroid tăng yêu cầu vitamin K; khi điều trị bằng antithyroid, cần giám sát INR.",
+    "action": "Kiểm tra INR sau 2-3 tuần điều trị antithyroid; điều chỉnh warfarin nếu cần.",
+    "source": "Thyroid Disease and Anticoagulation Guidelines",
+    "category": "drug_interaction",
+    "severity": "medium",
+    "notes": ""
+  },
+  {
+    "title": "Chloroquine/Hydroxychloroquine và tương tác",
+    "keywords": ["chloroquine", "hydroxychloroquine", "mắt", "mat", "retinopathy", "tích tụ"],
+    "content": "Chloroquine tích tụ trong mô; có thể gây độc tính mắt; tương tác với digoxin.",
+    "action": "Kiểm tra mắt định kỳ; giám sát digoxin; báo nếu thị lực xấu.",
+    "source": "Antimalarial Drug Safety",
+    "category": "safety",
+    "severity": "medium",
+    "notes": ""
+  },
+  {
+    "title": "Thiopurine (azathioprine, 6-MP) và Allopurinol",
+    "keywords": ["azathioprine", "6-mercaptopurine", "allopurinol", "xanthine oxidase", "độc tính"],
+    "content": "Allopurinol ức chế xanthine oxidase; nếu dùng với thiopurine, cần giảm liều 50-75% để tránh độc tính.",
+    "action": "Giảm liều thiopurine; kiểm tra toàn bộ máu định kỳ.",
+    "source": "Thiopurine Metabolism Guidelines",
+    "category": "drug_interaction",
+    "severity": "high",
+    "notes": ""
+  },
+  {
+    "title": "ACE inhibitor + Angiotensin Receptor Blocker",
+    "keywords": ["ace inhibitor", "arb", "angiotensin receptor", "kali", "potassium", "thận"],
+    "content": "Kết hợp ACE-I + ARB không được khuyến khích; tăng nguy cơ hyperkalemia, suy thận, hạ huyết áp.",
+    "action": "Chọn một trong hai; nếu phải dùng cùng thì giám sát kali, creatinine rất chặt chẽ.",
+    "source": "Hypertension Management Guidelines - ACC/AHA",
+    "category": "drug_interaction",
+    "severity": "high",
+    "notes": ""
+  },
+  {
+    "title": "Sulfonylurea + Clarithromycin",
+    "keywords": ["sulfonylurea", "glibenclamide", "clarithromycin", "hạ đường", "ha duong", "hypoglycemia"],
+    "content": "Clarithromycin tăng mức sulfonylurea; tăng nguy cơ hạ đường huyết nặng.",
+    "action": "Giám sát glucose chặt chẽ; cân nhắc giảm sulfonylurea; ăn thường xuyên.",
+    "source": "Macrolide-Sulfonylurea Interaction",
+    "category": "drug_interaction",
+    "severity": "high",
+    "notes": ""
+  },
+  {
+    "title": "Bisphosphonate + Calcium/Iron",
+    "keywords": ["bisphosphonate", "alendronate", "risedronate", "calcium", "iron", "hấp thu"],
+    "content": "Calcium, iron, magnesium giảm hấp thu bisphosphonate; cần cách xa 30 phút - 2 giờ.",
+    "action": "Uống bisphosphonate một mình trên bụng không; calcium/iron sau 30 phút.",
+    "source": "Bisphosphonate Administration Guidelines",
+    "category": "drug_interaction",
+    "severity": "medium",
+    "notes": ""
+  },
+  {
+    "title": "TNF-alpha inhibitor - lây nhiễm nguy hiểm",
+    "keywords": ["tnf inhibitor", "infliximab", "etanercept", "tuberculosis", "viêm nhiễm", "viem nhiem"],
+    "content": "TNF inhibitor làm suy yếu miễn dịch; tăng nguy cơ lao, nhiễm trùng. Cần check tuberculin trước khi dùng.",
+    "action": "Kiểm tra lao (tuberculin test/IGRA) trước dùng; báo ngay nếu ho lâu, sốt.",
+    "source": "TNF Inhibitor Safety - FDA Black Box Warning",
+    "category": "safety",
+    "severity": "high",
+    "notes": ""
+  }
+]
