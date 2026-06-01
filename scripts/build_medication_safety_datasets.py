@@ -15,6 +15,7 @@ import argparse
 import json
 import random
 import re
+import sys
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -23,6 +24,10 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "data" / "processed"
+sys.path.insert(0, str(ROOT))
+
+from src.safety_taxonomy import classify_question
+from src.vi_text import make_informal_variants, normalize_vi_text
 
 SYSTEM_PROMPT = (
     "Bạn là trợ lý AI về an toàn sử dụng thuốc cho mục đích giáo dục. "
@@ -197,6 +202,41 @@ def messages(question: str, answer: str) -> list[dict[str, str]]:
     ]
 
 
+def normalize_dataset_row(row: dict[str, Any]) -> dict[str, Any]:
+    row = dict(row)
+    row["question"] = normalize_vi_text(row["question"])
+    row["answer"] = normalize_vi_text(row["answer"])
+    row["safety_category"] = classify_question(row["question"]).label
+    row["messages"] = messages(row["question"], row["answer"])
+    return row
+
+
+def augment_seed_rows(seed_rows: list[dict[str, Any]], repeat_seed: int, seed: int) -> list[dict[str, Any]]:
+    """Repeat seed rows and add Vietnamese informal variants."""
+
+    augmented: list[dict[str, Any]] = []
+    for row in seed_rows:
+        category = classify_question(row["question"])
+        normalized = normalize_dataset_row(row)
+        normalized["augmentation"] = "original_seed"
+        augmented.append(normalized)
+        for variant in make_informal_variants(row["question"], max_variants=4, seed=seed):
+            augmented.append(
+                normalize_dataset_row(
+                    {
+                        **row,
+                        "question": variant,
+                        "source": "seed_vi_medication_safety::informal_variant",
+                        "topic": category.label,
+                        "augmentation": "informal_variant",
+                    }
+                )
+            )
+
+    repeated = (augmented * max(repeat_seed, 1))[: len(augmented) * max(repeat_seed, 1)]
+    return repeated
+
+
 def extract_qa_from_messages(row: dict[str, Any]) -> tuple[str, str] | None:
     msg_list = row.get("messages")
     if not isinstance(msg_list, list):
@@ -273,13 +313,14 @@ def load_meddies(limit: int, seed: int) -> list[dict[str, Any]]:
         if not has_medication_keyword(question + " " + answer):
             continue
         rows.append(
-            {
-                "question": question,
-                "answer": answer,
-                "topic": row.get("question_category", "pharmaceuticals"),
-                "source": "Meddies/meddies-qa::qa_pharmaceuticals",
-                "messages": messages(question, answer),
-            }
+            normalize_dataset_row(
+                {
+                    "question": question,
+                    "answer": answer,
+                    "topic": row.get("question_category", "pharmaceuticals"),
+                    "source": "Meddies/meddies-qa::qa_pharmaceuticals",
+                }
+            )
         )
         if len(rows) >= limit:
             break
@@ -325,15 +366,16 @@ def load_medlens(limit: int, seed: int) -> list[dict[str, Any]]:
         question = f"Tôi đang dùng {meds}. Các thuốc này có nguy cơ tương tác hoặc tác dụng bất lợi nghiêm trọng không?"
         answer = translate_medlens_answer(answer_en)
         rows.append(
-            {
-                "question": question,
-                "answer": answer,
-                "topic": "drug_interaction_signal",
-                "source": "ASHu2/medlens::translated_template",
-                "source_question_en": question_en,
-                "source_answer_en": answer_en,
-                "messages": messages(question, answer),
-            }
+            normalize_dataset_row(
+                {
+                    "question": question,
+                    "answer": answer,
+                    "topic": "drug_interaction_signal",
+                    "source": "ASHu2/medlens::translated_template",
+                    "source_question_en": question_en,
+                    "source_answer_en": answer_en,
+                }
+            )
         )
         if len(rows) >= limit:
             break
@@ -351,12 +393,30 @@ def build(args: argparse.Namespace) -> None:
     random.seed(args.seed)
     meddies_rows = load_meddies(args.meddies_limit, args.seed)
     medlens_rows = load_medlens(args.medlens_limit, args.seed)
-    seed_rows = [{**row, "messages": messages(row["question"], row["answer"])} for row in SEED_SFT]
+    seed_rows = augment_seed_rows(SEED_SFT, args.repeat_seed, args.seed)
 
-    sft_rows = meddies_rows + medlens_rows + seed_rows * args.repeat_seed
+    sft_rows = meddies_rows + medlens_rows + seed_rows
     random.shuffle(sft_rows)
 
-    dpo_rows = SEED_DPO * args.repeat_dpo
+    dpo_rows = []
+    for row in SEED_DPO:
+        category = classify_question(row["prompt"])
+        enriched = {
+            **row,
+            "safety_category": category.label,
+            "risk_level": category.risk_level,
+            "unsafe_pattern": category.unsafe_pattern,
+        }
+        dpo_rows.append(enriched)
+        for variant in make_informal_variants(row["prompt"], max_variants=4, seed=args.seed):
+            dpo_rows.append(
+                {
+                    **enriched,
+                    "prompt": variant,
+                    "augmentation": "informal_variant",
+                }
+            )
+    dpo_rows = dpo_rows * args.repeat_dpo
     random.shuffle(dpo_rows)
 
     write_jsonl(OUT_DIR / "medication_safety_vi_sft.jsonl", sft_rows)
@@ -369,9 +429,15 @@ def build(args: argparse.Namespace) -> None:
         "sources": {
             "meddies_rows": len(meddies_rows),
             "medlens_rows": len(medlens_rows),
-            "seed_rows_repeated": len(seed_rows) * args.repeat_seed,
+            "seed_rows_augmented_repeated": len(seed_rows),
             "dpo_seed_rows_repeated": len(dpo_rows),
         },
+        "vietnamese_robustness": [
+            "accented and no-accent variants",
+            "informal abbreviations: ko/k/khong, dc/dc, bs, ds, ks, para, ibu",
+            "family-member phrasing: ba/me em hoi giup",
+        ],
+        "safety_taxonomy": sorted({row["safety_category"] for row in sft_rows if "safety_category" in row}),
         "system_prompt": SYSTEM_PROMPT,
         "safety_scope": "education only; no diagnosis, no prescribing, no self-adjusting medication",
     }
@@ -383,8 +449,8 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--meddies-limit", type=int, default=200)
     parser.add_argument("--medlens-limit", type=int, default=100)
-    parser.add_argument("--repeat-seed", type=int, default=20)
-    parser.add_argument("--repeat-dpo", type=int, default=25)
+    parser.add_argument("--repeat-seed", type=int, default=8)
+    parser.add_argument("--repeat-dpo", type=int, default=10)
     parser.add_argument("--seed", type=int, default=42)
     return parser.parse_args()
 

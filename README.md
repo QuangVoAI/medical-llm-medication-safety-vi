@@ -2,7 +2,7 @@
 
 Đây là nhánh thực nghiệm Medical LLM cho bài lab NLP:
 
-> Vietnamese Medication Safety Assistant: SFT and DPO Alignment for Safer Medical LLM Responses
+> Vietnamese Medication Safety Assistant: SFT, DPO, RAG, and Safety Evaluation for Safer Medical LLM Responses
 
 Mục tiêu không phải xây công cụ tư vấn y tế thật, mà là demo pipeline SFT/DPO cho một bài toán medical NLP có rủi ro rõ ràng: an toàn sử dụng thuốc cho người Việt.
 
@@ -45,8 +45,26 @@ DPO dataset:
 
 Evaluation:
 
-- 8 prompt tiếng Việt trong `outputs/evaluation_prompts.jsonl`.
+- 12 prompt tiếng Việt trong `outputs/evaluation_prompts.jsonl`, gồm cả câu không dấu/viết tắt.
 - Bảng chấm thủ công trong `outputs/manual_eval_template.csv`.
+
+## Nâng cấp cho tiếng Việt đời thường
+
+Project có thêm lớp xử lý để mô phỏng cách người Việt hỏi thật:
+
+- không dấu: `em quen thuoc huyet ap...`;
+- viết tắt: `ko`, `k`, `dc`, `đc`;
+- viết tắt y tế đời thường: `bs`, `ds`, `ks`;
+- tên thuốc viết ngắn: `para`, `ibu`;
+- hỏi thay người thân: `ba em`, `mẹ em hỏi giúp`.
+
+Các module chính:
+
+- `src/vi_text.py`: normalization và informal augmentation.
+- `src/safety_taxonomy.py`: taxonomy lỗi safety cho DPO.
+- `src/rag_knowledge.py`: RAG nhỏ bằng rule-based snippets.
+- `src/evaluator.py`: rubric safety/factuality/uncertainty/actionability/Vietnamese quality.
+- `app.py`: demo Gradio.
 
 ## Cấu trúc
 
@@ -59,6 +77,7 @@ medical_llm_medication_safety_vi/
   docs/
     EXPERIMENT_PLAN.md
     DATASET_STRATEGY.md
+    UPGRADE_PLAN.md
   notebooks/
     medication_safety_vi_sft_dpo_demo.ipynb
   outputs/
@@ -69,6 +88,13 @@ medical_llm_medication_safety_vi/
     build_medication_safety_datasets.py
     create_eval_artifacts.py
     create_notebook.py
+    score_outputs.py
+  src/
+    vi_text.py
+    safety_taxonomy.py
+    rag_knowledge.py
+    evaluator.py
+  app.py
 ```
 
 ## Chạy local để tạo dữ liệu
@@ -84,6 +110,19 @@ Nếu máy local không có thư viện `datasets`, script vẫn tạo được 
 
 ```bash
 pip install datasets
+```
+
+## Chạy demo UI
+
+```bash
+pip install -r requirements.txt
+python app.py
+```
+
+Nếu chưa có model train xong, app vẫn chạy bằng rule/RAG fallback để demo pipeline. Nếu đã có model, set:
+
+```bash
+MODEL_PATH=/path/to/model-or-merged-checkpoint python app.py
 ```
 
 ## Train demo
@@ -105,3 +144,5 @@ Khuyến nghị Colab/Kaggle GPU:
 ## Câu nói khi trình bày
 
 > Em chọn Medication Safety vì đây là một bài toán Medical LLM rất phù hợp với SFT và DPO. SFT giúp model học cách trả lời tiếng Việt theo format an toàn. DPO giúp model ưu tiên câu trả lời thận trọng hơn, tránh các lời khuyên nguy hiểm như tự uống bù liều, tự ngưng kháng sinh, hoặc dùng chung thuốc có nguy cơ tương tác.
+
+> Điểm khó của tiếng Việt là người dùng không luôn hỏi bằng câu chuẩn: họ có thể không gõ dấu, dùng viết tắt như `ko`, `dc`, `ks`, `bs`, hoặc hỏi thay người thân. Vì vậy project thêm informal augmentation, safety taxonomy, RAG nhỏ và rubric evaluation.

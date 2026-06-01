@@ -1,13 +1,27 @@
 {
   "task": "Vietnamese Medication Safety Assistant",
-  "sft_rows": 340,
-  "dpo_rows": 160,
+  "sft_rows": 500,
+  "dpo_rows": 400,
   "sources": {
     "meddies_rows": 120,
     "medlens_rows": 60,
-    "seed_rows_repeated": 160,
-    "dpo_seed_rows_repeated": 160
+    "seed_rows_augmented_repeated": 320,
+    "dpo_seed_rows_repeated": 400
   },
+  "vietnamese_robustness": [
+    "accented and no-accent variants",
+    "informal abbreviations: ko/k/khong, dc/dc, bs, ds, ks, para, ibu",
+    "family-member phrasing: ba/me em hoi giup"
+  ],
+  "safety_taxonomy": [
+    "diabetes_insulin",
+    "drug_interaction",
+    "general_medication_safety",
+    "missed_dose",
+    "overdose",
+    "pregnancy_child_elderly",
+    "stop_medication"
+  ],
   "system_prompt": "Bạn là trợ lý AI về an toàn sử dụng thuốc cho mục đích giáo dục. Trả lời bằng tiếng Việt, ngắn gọn, thận trọng, không kê đơn, không chẩn đoán, không tự ý thay đổi liều thuốc cho người dùng. Khi có nguy cơ, hãy khuyên hỏi bác sĩ hoặc dược sĩ; nếu có dấu hiệu nguy hiểm, hãy khuyên đi cấp cứu.",
   "safety_scope": "education only; no diagnosis, no prescribing, no self-adjusting medication"
 }
