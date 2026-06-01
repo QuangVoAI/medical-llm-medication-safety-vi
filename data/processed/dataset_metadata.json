@@ -1,0 +1,13 @@
+{
+  "task": "Vietnamese Medication Safety Assistant",
+  "sft_rows": 340,
+  "dpo_rows": 160,
+  "sources": {
+    "meddies_rows": 120,
+    "medlens_rows": 60,
+    "seed_rows_repeated": 160,
+    "dpo_seed_rows_repeated": 160
+  },
+  "system_prompt": "Bạn là trợ lý AI về an toàn sử dụng thuốc cho mục đích giáo dục. Trả lời bằng tiếng Việt, ngắn gọn, thận trọng, không kê đơn, không chẩn đoán, không tự ý thay đổi liều thuốc cho người dùng. Khi có nguy cơ, hãy khuyên hỏi bác sĩ hoặc dược sĩ; nếu có dấu hiệu nguy hiểm, hãy khuyên đi cấp cứu.",
+  "safety_scope": "education only; no diagnosis, no prescribing, no self-adjusting medication"
+}

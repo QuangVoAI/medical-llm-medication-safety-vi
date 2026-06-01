@@ -1,0 +1,17 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Local training outputs
+medication_safety_vi_sft_lora/
+medication_safety_vi_dpo_lora/
+checkpoint-*/
+runs/
+wandb/
+
+# Local envs and secrets
+.env
+.venv/
+venv/
+*.log
