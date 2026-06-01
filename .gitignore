@@ -20,3 +20,5 @@ venv/
 outputs/manual_eval_template.csv
 outputs/scored_eval.csv
 outputs/RESULT_TEMPLATE.md
+outputs/manual_eval_with_rule_rag_baseline.csv
+outputs/scored_rule_rag_baseline.csv

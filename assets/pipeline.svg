@@ -36,9 +36,9 @@
   <text class="small" x="628" y="250">risk level routing</text>
 
   <rect class="box safe" x="880" y="155" width="220" height="120"/>
-  <text class="title" x="910" y="195">Toy RAG</text>
-  <text class="body" x="910" y="225">Retrieve safety snippets</text>
-  <text class="small" x="910" y="250">transparent grounding demo</text>
+  <text class="title" x="910" y="195">Agentic RAG</text>
+  <text class="body" x="910" y="225">BM25 + vector + rerank</text>
+  <text class="small" x="910" y="250">self-check before answer</text>
 
   <path class="arrow" d="M270 215 H330"/>
   <path class="arrow" d="M540 215 H600"/>

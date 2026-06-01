@@ -48,7 +48,7 @@ flowchart LR
 | SFT dataset | Teaches Vietnamese medication-safety answer format |
 | DPO dataset | Teaches preference for safer answers over risky answers |
 | Safety taxonomy | Groups risks like missed dose, drug interaction, overdose, pregnancy/children, insulin |
-| Toy RAG | Adds transparent safety snippets before generation |
+| Controlled Agentic RAG | Routes intent, retrieves context, self-checks safety before answering |
 | Evaluation | Includes medication safety, noisy Vietnamese, ambiguous prompts, and off-topic prompts |
 | Gradio app | Lets viewers test the pipeline interactively |
 
@@ -61,10 +61,12 @@ flowchart LR
 | [docs/PIPELINE.md](docs/PIPELINE.md) | Visual end-to-end pipeline |
 | [data/processed/dataset_metadata.json](data/processed/dataset_metadata.json) | Dataset scale and composition |
 | [outputs/evaluation_prompts.jsonl](outputs/evaluation_prompts.jsonl) | Evaluation prompt set |
-| [outputs/manual_eval_with_rule_rag_baseline.csv](outputs/manual_eval_with_rule_rag_baseline.csv) | Filled baseline outputs |
-| [outputs/scored_rule_rag_baseline.csv](outputs/scored_rule_rag_baseline.csv) | Baseline heuristic scores |
+| [outputs/manual_eval_with_agentic_rag_baseline.csv](outputs/manual_eval_with_agentic_rag_baseline.csv) | Filled Agentic RAG baseline outputs |
+| [outputs/scored_agentic_rag_baseline.csv](outputs/scored_agentic_rag_baseline.csv) | Baseline heuristic scores |
 | [src/safety_taxonomy.py](src/safety_taxonomy.py) | Risk categories |
-| [src/rag_knowledge.py](src/rag_knowledge.py) | Toy retrieval layer |
+| [src/agent/medication_agent.py](src/agent/medication_agent.py) | Controlled agent orchestration |
+| [src/retrieval/hybrid_retriever.py](src/retrieval/hybrid_retriever.py) | BM25 + vector hybrid retrieval |
+| [src/rag_knowledge.py](src/rag_knowledge.py) | Curated safety snippets used by retrieval |
 | [src/evaluator.py](src/evaluator.py) | Heuristic evaluation rubric |
 
 ## Dataset Snapshot
@@ -87,7 +89,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-The app works even before GPU training by using the transparent rule/RAG fallback.
+The app works even before GPU training by using the transparent controlled Agentic RAG fallback.
 
 With a trained or merged checkpoint:
 
@@ -117,10 +119,10 @@ Recommended setup:
 ```bash
 python scripts/build_medication_safety_datasets.py
 python scripts/create_eval_artifacts.py
-python scripts/fill_rule_rag_baseline.py
+python scripts/fill_agentic_rag_baseline.py
 python scripts/score_outputs.py \
-  --input outputs/manual_eval_with_rule_rag_baseline.csv \
-  --output outputs/scored_rule_rag_baseline.csv
+  --input outputs/manual_eval_with_agentic_rag_baseline.csv \
+  --output outputs/scored_agentic_rag_baseline.csv
 ```
 
 ## Show This In Lab
@@ -136,7 +138,7 @@ Viên thuốc màu xanh của tôi uống mấy viên một ngày?
 Ngày mai ở TP.HCM có mưa không?
 ```
 
-4. Open [outputs/scored_rule_rag_baseline.csv](outputs/scored_rule_rag_baseline.csv) to show the baseline evaluation table.
+4. Open [outputs/scored_agentic_rag_baseline.csv](outputs/scored_agentic_rag_baseline.csv) to show the baseline evaluation table.
 5. Explain that the main experiment compares Base vs SFT vs SFT + DPO after running the notebook.
 
 ## Limitations
@@ -146,10 +148,10 @@ This repo is intentionally honest about its limits:
 - Demo-scale dataset, not production data.
 - Many training rows come from seed augmentation and repetition.
 - DPO pairs are designed for a lab demo, not expert-annotated clinical preference data.
-- RAG is keyword-based toy retrieval over a few safety snippets.
+- Retrieval is still small-scale, but it now uses a controlled Agentic RAG flow with BM25 + vector retrieval, reranking, and safety self-check.
 - The evaluator is a heuristic proxy, not medical or NLG quality evaluation.
 - The assistant is not a clinical decision, diagnosis, or prescribing system.
 
 ## Pitch
 
-> This project studies Vietnamese Medication Safety QA as a Medical LLM alignment problem. SFT teaches the model how to answer in Vietnamese; DPO teaches it to prefer safer responses. The difficult Vietnamese part is robustness to no accents, abbreviations, slang, and family-proxy questions, so the pipeline adds informal augmentation, safety taxonomy, toy RAG, and safety-focused evaluation.
+> This project studies Vietnamese Medication Safety QA as a Medical LLM alignment problem. SFT teaches the model how to answer in Vietnamese; DPO teaches it to prefer safer responses. The difficult Vietnamese part is robustness to no accents, abbreviations, slang, and family-proxy questions, so the pipeline adds informal augmentation, safety taxonomy, controlled Agentic RAG, hybrid retrieval, safety self-check, and safety-focused evaluation.
