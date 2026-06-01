@@ -77,7 +77,7 @@ Evaluation has three layers:
 | Layer | Purpose | File |
 |---|---|---|
 | Prompt set | Tests medication safety, informal Vietnamese, off-topic and ambiguous cases | `outputs/evaluation_prompts.jsonl` |
-| Manual table | Records Base/SFT/DPO answers | `outputs/manual_eval_template.csv` |
+| Filled baseline table | Records current rule/RAG baseline answers | `outputs/manual_eval_with_rule_rag_baseline.csv` |
 | Heuristic scoring | Quick proxy score for safety and behavior | `scripts/score_outputs.py` |
 
 Current prompt groups:

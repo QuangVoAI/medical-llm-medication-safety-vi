@@ -1,0 +1,73 @@
+<svg width="1200" height="620" viewBox="0 0 1200 620" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="620" fill="#F7FAFC"/>
+  <text x="60" y="70" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#102A43">Vietnamese Medication Safety Assistant</text>
+  <text x="60" y="105" font-family="Arial, sans-serif" font-size="18" fill="#52606D">SFT + DPO alignment pipeline for safer Vietnamese medication QA</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2 2 L10 6 L2 10 Z" fill="#486581"/>
+    </marker>
+    <style>
+      .box { fill: #FFFFFF; stroke: #BCCCDC; stroke-width: 2; rx: 14; }
+      .primary { fill: #E0F2FE; stroke: #38BDF8; }
+      .safe { fill: #DCFCE7; stroke: #22C55E; }
+      .warn { fill: #FEF3C7; stroke: #F59E0B; }
+      .eval { fill: #EDE9FE; stroke: #8B5CF6; }
+      .title { font: 700 18px Arial, sans-serif; fill: #102A43; }
+      .body { font: 15px Arial, sans-serif; fill: #334E68; }
+      .small { font: 13px Arial, sans-serif; fill: #52606D; }
+      .arrow { stroke: #486581; stroke-width: 2.4; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect class="box primary" x="60" y="155" width="210" height="120"/>
+  <text class="title" x="88" y="195">User Question</text>
+  <text class="body" x="88" y="225">Vietnamese, messy input</text>
+  <text class="small" x="88" y="250">ko, dc, ks, ibu, no accents</text>
+
+  <rect class="box" x="330" y="155" width="210" height="120"/>
+  <text class="title" x="360" y="195">Normalize</text>
+  <text class="body" x="360" y="225">Clean text variants</text>
+  <text class="small" x="360" y="250">robust Vietnamese handling</text>
+
+  <rect class="box warn" x="600" y="155" width="220" height="120"/>
+  <text class="title" x="628" y="195">Safety Taxonomy</text>
+  <text class="body" x="628" y="225">missed dose, DDI, overdose</text>
+  <text class="small" x="628" y="250">risk level routing</text>
+
+  <rect class="box safe" x="880" y="155" width="220" height="120"/>
+  <text class="title" x="910" y="195">Toy RAG</text>
+  <text class="body" x="910" y="225">Retrieve safety snippets</text>
+  <text class="small" x="910" y="250">transparent grounding demo</text>
+
+  <path class="arrow" d="M270 215 H330"/>
+  <path class="arrow" d="M540 215 H600"/>
+  <path class="arrow" d="M820 215 H880"/>
+
+  <rect class="box" x="115" y="360" width="220" height="125"/>
+  <text class="title" x="145" y="398">Open Data</text>
+  <text class="body" x="145" y="428">Meddies QA + MedLens</text>
+  <text class="small" x="145" y="453">plus Vietnamese safety seeds</text>
+
+  <rect class="box primary" x="420" y="360" width="220" height="125"/>
+  <text class="title" x="450" y="398">SFT</text>
+  <text class="body" x="450" y="428">Teach answer format</text>
+  <text class="small" x="450" y="453">Vietnamese medication QA</text>
+
+  <rect class="box warn" x="725" y="360" width="220" height="125"/>
+  <text class="title" x="755" y="398">DPO</text>
+  <text class="body" x="755" y="428">Prefer safer answers</text>
+  <text class="small" x="755" y="453">chosen vs rejected pairs</text>
+
+  <rect class="box eval" x="890" y="505" width="220" height="70"/>
+  <text class="title" x="918" y="535">Evaluation</text>
+  <text class="small" x="918" y="558">safety rubric + demo table</text>
+
+  <path class="arrow" d="M335 422 H420"/>
+  <path class="arrow" d="M640 422 H725"/>
+  <path class="arrow" d="M945 422 C1020 422 1030 475 1000 505"/>
+  <path class="arrow" d="M990 275 V360"/>
+
+  <rect x="60" y="545" width="580" height="38" rx="10" fill="#FFFFFF" stroke="#D9E2EC"/>
+  <text class="small" x="82" y="569">Research demo only: not for diagnosis, prescribing, or clinical decision making.</text>
+</svg>

@@ -15,3 +15,8 @@ wandb/
 .venv/
 venv/
 *.log
+
+# Generated helper artifacts that are not part of the showcase
+outputs/manual_eval_template.csv
+outputs/scored_eval.csv
+outputs/RESULT_TEMPLATE.md
