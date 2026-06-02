@@ -56,6 +56,7 @@ flowchart LR
 |---|---|
 | [notebooks/medication_safety_vi_sft_dpo_demo.ipynb](notebooks/medication_safety_vi_sft_dpo_demo.ipynb) | SFT + DPO training notebook |
 | [docs/LAB_PRESENTATION.md](docs/LAB_PRESENTATION.md) | What to present for the NLP lab assignment |
+| [docs/MEDICAL_LLM_OVERVIEW_BENCHMARKS.md](docs/MEDICAL_LLM_OVERVIEW_BENCHMARKS.md) | Medical LLM overview, models, benchmarks, and references |
 | [docs/PIPELINE.md](docs/PIPELINE.md) | Visual end-to-end pipeline |
 | [data/processed/dataset_metadata.json](data/processed/dataset_metadata.json) | Dataset scale and composition |
 | [outputs/evaluation_prompts.jsonl](outputs/evaluation_prompts.jsonl) | Evaluation prompt set |

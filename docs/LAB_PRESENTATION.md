@@ -21,6 +21,7 @@ RAG không phải trọng tâm bài này. Nếu nhắc đến, chỉ đặt ở 
 3. **Medical LLM Overview**
    - Medical LLM là LLM được huấn luyện hoặc fine-tune trên dữ liệu y khoa.
    - Use cases: medical QA, clinical note summarization, guideline QA, patient communication.
+   - Chi tiết để đưa vào slide: `docs/MEDICAL_LLM_OVERVIEW_BENCHMARKS.md`.
 
 4. **Benchmarks**
    - MedQA, MedMCQA, PubMedQA, MMLU Medical.
