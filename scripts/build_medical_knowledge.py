@@ -51,10 +51,10 @@ def build_extended_knowledge_base() -> list[KnowledgeSnippet]:
 
 
 def build_medical_db_script() -> None:
-    """Generate a script to use the extended knowledge base."""
+    """Generate a preview script for inspecting the extended knowledge base."""
     extended = build_extended_knowledge_base()
 
-    output_file = Path(__file__).parent.parent / "src" / "rag_knowledge_extended.py"
+    output_file = Path(__file__).parent.parent / "outputs" / "generated" / "rag_knowledge_preview.py"
     output_file.parent.mkdir(parents=True, exist_ok=True)
 
     with open(output_file, "w") as f:
@@ -87,7 +87,7 @@ def build_medical_db_script() -> None:
         f.write("    scored.sort(key=lambda item: item[0], reverse=True)\n")
         f.write("    return [snippet for _, snippet in scored[:top_k]]\n")
 
-    print(f"✓ Xuất extended knowledge base: {output_file}")
+    print(f"✓ Xuất preview extended knowledge base: {output_file}")
     print(f"  Chứa {len(extended)} snippets")
 
     # Statistics

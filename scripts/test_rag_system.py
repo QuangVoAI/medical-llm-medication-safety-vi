@@ -110,24 +110,12 @@ def test_extended_knowledge_base() -> None:
     print("📚 TEST: Extended Knowledge Base")
     print("=" * 80)
 
-    extended_file = Path(__file__).parent.parent / "src" / "rag_knowledge_extended.py"
-
-    if not extended_file.exists():
-        print(f"⚠️  Extended knowledge base not found at {extended_file}")
-        print("   Run: python scripts/build_medical_knowledge.py export")
-        return
-
-    import importlib.util
-
-    spec = importlib.util.spec_from_file_location("rag_knowledge_extended", extended_file)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-
-    snippets = module.EXTENDED_KNOWLEDGE_BASE
-    print(f"\n✓ Extended knowledge base loaded: {len(snippets)} snippets")
+    docs = load_default_documents()
+    snippets = [doc for doc in docs if doc.source == "curated_safety_snippet"]
+    print(f"\n✓ Extended knowledge base loaded from JSON/runtime loader: {len(snippets)} snippets")
 
     # Categorize by source
-    from_bm = sum(1 for s in snippets if "Bộ Y Tế" in s.content or "Bộ Y Tế" in s.action)
+    from_bm = sum(1 for s in snippets if "Bộ Y Tế" in s.text)
     from_international = len(snippets) - from_bm
 
     print(f"\n📖 Source Breakdown:")

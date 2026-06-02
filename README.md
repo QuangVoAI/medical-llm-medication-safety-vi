@@ -64,11 +64,11 @@ flowchart LR
 | [outputs/manual_eval_with_agentic_rag_baseline.csv](outputs/manual_eval_with_agentic_rag_baseline.csv) | Filled Agentic RAG baseline outputs |
 | [outputs/scored_agentic_rag_baseline.csv](outputs/scored_agentic_rag_baseline.csv) | Baseline heuristic scores |
 | [data/medical_documents.json](data/medical_documents.json) | Extended medication-safety knowledge documents |
-| [src/rag_knowledge_extended.py](src/rag_knowledge_extended.py) | Generated extended RAG knowledge base |
 | [src/safety_taxonomy.py](src/safety_taxonomy.py) | Risk categories |
 | [src/agent/medication_agent.py](src/agent/medication_agent.py) | Controlled agent orchestration |
 | [src/retrieval/hybrid_retriever.py](src/retrieval/hybrid_retriever.py) | BM25 + vector hybrid retrieval |
-| [src/rag_knowledge.py](src/rag_knowledge.py) | Curated safety snippets used by retrieval |
+| [src/rag_knowledge.py](src/rag_knowledge.py) | Base curated safety snippets used by retrieval |
+| [src/retrieval/documents.py](src/retrieval/documents.py) | Runtime loader combining base snippets and JSON knowledge docs |
 | [src/evaluator.py](src/evaluator.py) | Heuristic evaluation rubric |
 
 ## Dataset Snapshot

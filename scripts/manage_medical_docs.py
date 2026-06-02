@@ -89,10 +89,11 @@ def list_documents(category: str | None = None) -> None:
 
 
 def export_to_knowledge_snippets() -> None:
-    """Xuất sang KnowledgeSnippet format."""
+    """Xuất preview KnowledgeSnippet format, không dùng làm runtime source."""
     docs = load_medical_documents()
 
-    output = Path(__file__).parent.parent / "src" / "rag_knowledge_extended.py"
+    output = Path(__file__).parent.parent / "outputs" / "generated" / "rag_knowledge_preview.py"
+    output.parent.mkdir(parents=True, exist_ok=True)
     with open(output, "w") as f:
         f.write("# Auto-generated from medical_documents.json\n")
         f.write("from dataclasses import dataclass\n\n")

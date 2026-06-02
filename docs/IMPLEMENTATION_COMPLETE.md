@@ -31,7 +31,7 @@
 |---|---|---|
 | `data/medical_documents.json` | 29 medical documents | ✓ Mở rộng |
 | `src/rag_knowledge.py` | 30 base snippets | ✓ Có sẵn |
-| `src/rag_knowledge_extended.py` | 59 combined snippets | ✓ Tự động generate |
+| `src/retrieval/documents.py` | Runtime loader: base snippets + JSON docs | ✓ Có sẵn |
 
 ### Retrieval & Embeddings
 | File | Nội Dung | Trạng Thái |
@@ -64,10 +64,10 @@
 pip install -r requirements.txt
 ```
 
-### 2. Build Extended Knowledge Base
+### 2. Kiểm Tra Extended Knowledge Base
 
 ```bash
-python scripts/build_medical_knowledge.py export
+python scripts/build_medical_knowledge.py
 ```
 
 ### 3. Test System

@@ -40,11 +40,14 @@ pip install sentence-transformers numpy
 ### 2. Xây Dựng Extended Knowledge Base
 
 ```bash
-python scripts/build_medical_knowledge.py export
+python scripts/build_medical_knowledge.py
 ```
 
-Output:
-- `src/rag_knowledge_extended.py` - 59 medical snippets (30 base + 29 mở rộng)
+Knowledge base runtime được load từ:
+- `src/rag_knowledge.py` - base curated snippets
+- `data/medical_documents.json` - tài liệu mở rộng dạng JSON
+
+Không cần commit file Python generated. Nếu muốn xem thống kê hoặc export debug, script `scripts/build_medical_knowledge.py` vẫn có thể dùng như công cụ phụ.
 
 ### 3. Build Embeddings Cache
 
@@ -273,11 +276,11 @@ A: Xóa `.embeddings_cache.json` và chạy lại. Cache sẽ rebuild automatica
 A: Dùng model nhẹ hơn hoặc disable `use_sentence_transformers=False`.
 
 **Q: Muốn thêm tài liệu y tế mới?**
-A: Thêm vào `data/medical_documents.json` rồi chạy:
+A: Thêm vào `data/medical_documents.json` rồi xóa cache để embeddings được build lại:
 ```bash
-python scripts/build_medical_knowledge.py export
 rm .embeddings_cache.json
 ```
+Runtime loader sẽ tự đọc JSON. Lệnh `python scripts/build_medical_knowledge.py export` chỉ dùng khi muốn tạo preview trong `outputs/generated/`.
 
 **Q: Hỗ trợ các ngôn ngữ khác không?**
 A: Model `multilingual-MiniLM-L12-v2` hỗ trợ 100+ ngôn ngữ.

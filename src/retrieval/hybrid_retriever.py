@@ -38,26 +38,26 @@ class HybridRetriever:
         category: SafetyCategory,
         top_k: int = 3,
     ) -> list[tuple[RetrievalDocument, float, str]]:
-        """Hybrid search combining BM25 and semantic search.
+        """Hybrid search combining BM25 and semantic search with rank fusion.
 
         Returns:
             List of (document, combined_score, retrieval_source) tuples.
         """
         candidates: dict[str, tuple[RetrievalDocument, float, str]] = {}
+        rrf_k = 60
 
         # BM25 keyword search
-        for doc, score in self.bm25.search(query, top_k=8):
-            candidates[doc.doc_id] = (doc, score, "bm25")
+        for rank, (doc, _score) in enumerate(self.bm25.search(query, top_k=8), start=1):
+            candidates[doc.doc_id] = (doc, 1 / (rrf_k + rank), "bm25")
 
         # Vector semantic search
-        for doc, score in self.vector.search(query, top_k=8):
+        for rank, (doc, _score) in enumerate(self.vector.search(query, top_k=8), start=1):
+            rrf_score = 1 / (rrf_k + rank)
             if doc.doc_id in candidates:
                 old_doc, old_score, old_source = candidates[doc.doc_id]
-                # Combine scores: BM25 + semantic similarity
-                combined_score = old_score + score * 0.5  # Weight semantic search slightly less
+                combined_score = old_score + rrf_score
                 candidates[doc.doc_id] = (old_doc, combined_score, f"{old_source}+semantic")
             else:
-                candidates[doc.doc_id] = (doc, score, "semantic")
+                candidates[doc.doc_id] = (doc, rrf_score, "semantic")
 
         return rerank(query, category, list(candidates.values()), top_k=top_k)
-

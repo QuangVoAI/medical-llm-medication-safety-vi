@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
+from pathlib import Path
 
-try:
-    from src.rag_knowledge_extended import EXTENDED_KNOWLEDGE_BASE as KNOWLEDGE_BASE
-except ImportError:
-    from src.rag_knowledge import KNOWLEDGE_BASE
+from src.rag_knowledge import KNOWLEDGE_BASE, KnowledgeSnippet
 
 
 @dataclass(frozen=True)
@@ -19,9 +18,38 @@ class RetrievalDocument:
     tags: tuple[str, ...] = ()
 
 
+def load_json_knowledge_documents() -> list[KnowledgeSnippet]:
+    """Load curated JSON knowledge docs without committing generated Python code."""
+
+    doc_file = Path(__file__).resolve().parents[2] / "data" / "medical_documents.json"
+    if not doc_file.exists():
+        return []
+
+    with doc_file.open("r", encoding="utf-8") as handle:
+        rows = json.load(handle)
+
+    snippets: list[KnowledgeSnippet] = []
+    for row in rows:
+        snippets.append(
+            KnowledgeSnippet(
+                title=row["title"],
+                keywords=tuple(row["keywords"]),
+                content=row["content"],
+                action=row["action"],
+            )
+        )
+    return snippets
+
+
+def load_knowledge_base() -> list[KnowledgeSnippet]:
+    """Return base snippets plus JSON-maintained medication-safety documents."""
+
+    return list(KNOWLEDGE_BASE) + load_json_knowledge_documents()
+
+
 def load_default_documents() -> list[RetrievalDocument]:
     docs: list[RetrievalDocument] = []
-    for idx, snippet in enumerate(KNOWLEDGE_BASE, start=1):
+    for idx, snippet in enumerate(load_knowledge_base(), start=1):
         docs.append(
             RetrievalDocument(
                 doc_id=f"safety-{idx}",
