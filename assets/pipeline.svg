@@ -21,24 +21,24 @@
   </defs>
 
   <rect class="box primary" x="60" y="155" width="210" height="120"/>
-  <text class="title" x="88" y="195">User Question</text>
-  <text class="body" x="88" y="225">Vietnamese, messy input</text>
-  <text class="small" x="88" y="250">ko, dc, ks, ibu, no accents</text>
+  <text class="title" x="88" y="195">Medical QA Task</text>
+  <text class="body" x="88" y="225">Vietnamese medication</text>
+  <text class="small" x="88" y="250">question answering</text>
 
   <rect class="box" x="330" y="155" width="210" height="120"/>
-  <text class="title" x="360" y="195">Normalize</text>
-  <text class="body" x="360" y="225">Clean text variants</text>
-  <text class="small" x="360" y="250">robust Vietnamese handling</text>
+  <text class="title" x="360" y="195">Vietnamese Noise</text>
+  <text class="body" x="360" y="225">no accents, slang</text>
+  <text class="small" x="360" y="250">ko, dc, ks, ibu, para</text>
 
   <rect class="box warn" x="600" y="155" width="220" height="120"/>
   <text class="title" x="628" y="195">Safety Taxonomy</text>
   <text class="body" x="628" y="225">missed dose, DDI, overdose</text>
-  <text class="small" x="628" y="250">risk level routing</text>
+  <text class="small" x="628" y="250">chosen/rejected design</text>
 
   <rect class="box safe" x="880" y="155" width="220" height="120"/>
-  <text class="title" x="910" y="195">Agentic RAG</text>
-  <text class="body" x="910" y="225">BM25 + vector + rerank</text>
-  <text class="small" x="910" y="250">self-check before answer</text>
+  <text class="title" x="910" y="195">Benchmarks</text>
+  <text class="body" x="910" y="225">MedQA, PubMedQA</text>
+  <text class="small" x="910" y="250">HealthBench, MedHELM</text>
 
   <path class="arrow" d="M270 215 H330"/>
   <path class="arrow" d="M540 215 H600"/>
@@ -61,12 +61,12 @@
 
   <rect class="box eval" x="890" y="505" width="220" height="70"/>
   <text class="title" x="918" y="535">Evaluation</text>
-  <text class="small" x="918" y="558">safety rubric + demo table</text>
+  <text class="small" x="918" y="558">Base vs SFT vs DPO</text>
 
   <path class="arrow" d="M335 422 H420"/>
   <path class="arrow" d="M640 422 H725"/>
   <path class="arrow" d="M945 422 C1020 422 1030 475 1000 505"/>
-  <path class="arrow" d="M990 275 V360"/>
+  <path class="arrow" d="M990 275 V505"/>
 
   <rect x="60" y="545" width="580" height="38" rx="10" fill="#FFFFFF" stroke="#D9E2EC"/>
   <text class="small" x="82" y="569">Research demo only: not for diagnosis, prescribing, or clinical decision making.</text>
