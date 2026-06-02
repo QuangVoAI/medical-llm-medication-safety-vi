@@ -59,6 +59,7 @@ flowchart LR
 | [docs/EXECUTION_RUNBOOK.md](docs/EXECUTION_RUNBOOK.md) | Step-by-step run order, metrics to record, and presentation checklist |
 | [docs/COLAB_KAGGLE_RUN_GUIDE.md](docs/COLAB_KAGGLE_RUN_GUIDE.md) | Practical Colab/Kaggle setup, troubleshooting, and result-recording guide |
 | [docs/FINAL_LAB_CHECKLIST.md](docs/FINAL_LAB_CHECKLIST.md) | Last-minute presentation checklist and minimum result requirements |
+| [docs/DATASET_CARD.md](docs/DATASET_CARD.md) | Dataset sources, formats, intended use, and limitations |
 | [docs/PRETRAINING_FOUNDATION.md](docs/PRETRAINING_FOUNDATION.md) | Data format, loss, learning rate, and training-observation notes for CPT |
 | [docs/RESULTS_REPORT_TEMPLATE.md](docs/RESULTS_REPORT_TEMPLATE.md) | Template for turning CPT/SFT/DPO metrics into presentation-ready results |
 | [docs/OBSERVED_SFT_DEBUG_ANALYSIS.md](docs/OBSERVED_SFT_DEBUG_ANALYSIS.md) | Interprets the observed 10-step SFT debug loss and outputs |
