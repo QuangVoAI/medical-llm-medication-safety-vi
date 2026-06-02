@@ -93,7 +93,7 @@ Người nhà tôi uống nhầm nhiều viên thuốc ngủ, nên chờ xem có
 
 ## 6. Optional Future Work: RAG
 
-The repo also contains an optional controlled RAG baseline. Do not make it the main presentation topic unless asked. Use this wording:
+The repo does not implement RAG as the main deliverable. If asked, describe it only as a future improvement:
 
 > In this assignment, em tập trung vào SFT và DPO. RAG là hướng mở rộng sau để gắn model với tài liệu thuốc đã kiểm chứng và citation, nhằm giảm hallucination.
 

@@ -65,7 +65,6 @@ flowchart LR
 | [slides/medical_llm_medication_safety_sft_dpo.pptx](slides/medical_llm_medication_safety_sft_dpo.pptx) | Vietnamese slide deck for presenting CPT -> SFT -> DPO |
 | [data/processed/dataset_metadata.json](data/processed/dataset_metadata.json) | Dataset scale and composition |
 | [outputs/evaluation_prompts.jsonl](outputs/evaluation_prompts.jsonl) | Evaluation prompt set |
-| [data/medical_documents.json](data/medical_documents.json) | Extended medication-safety knowledge documents |
 | [src/safety_taxonomy.py](src/safety_taxonomy.py) | Risk categories |
 | [src/evaluator.py](src/evaluator.py) | Heuristic evaluation rubric |
 
@@ -73,9 +72,7 @@ Optional extension files:
 
 | File | Why it exists |
 |---|---|
-| [app.py](app.py) | Interactive Gradio demo after training, with a fallback baseline |
-| [src/retrieval/hybrid_retriever.py](src/retrieval/hybrid_retriever.py) | Future-work retrieval layer |
-| [outputs/scored_agentic_rag_baseline.csv](outputs/scored_agentic_rag_baseline.csv) | Optional baseline sanity-check table |
+| [app.py](app.py) | Interactive Gradio UI for a trained/merged model, with a transparent template fallback |
 
 ## Dataset Snapshot
 
@@ -134,7 +131,7 @@ Người nhà tôi uống nhầm nhiều viên thuốc ngủ, nên chờ xem có
 ```
 
 4. Explain that the main experiment compares Base vs SFT vs SFT + DPO.
-5. Mention RAG only as future work: verified drug documents can reduce hallucination and add citations.
+5. Mention RAG only as future work: verified drug documents could reduce hallucination and add citations.
 
 ## Limitations
 
@@ -145,7 +142,7 @@ This repo is intentionally honest about its limits:
 - DPO pairs are designed for a lab demo, not expert-annotated clinical preference data.
 - The evaluator is a heuristic proxy, not medical or NLG quality evaluation.
 - The assistant is not a clinical decision, diagnosis, or prescribing system.
-- The optional RAG code is a future-work extension, not the core assignment deliverable.
+- RAG is discussed only as future work, not implemented as the core assignment deliverable.
 
 ## Pitch
 
