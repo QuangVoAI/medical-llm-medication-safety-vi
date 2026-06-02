@@ -88,11 +88,20 @@ class MedicationSafetyAgent:
             )
 
         must = "; ".join(category.must_include)
+        evidence = self._first_context_line(context)
         return (
+            f"Theo tài liệu truy xuất: {evidence} "
             f"Với câu hỏi này, hướng an toàn là: {must}. "
             "Bạn không nên tự ý thêm, ngưng, đổi thuốc hoặc đổi liều khi chưa có hướng dẫn chuyên môn. "
             "Nếu có triệu chứng nặng, bất thường hoặc không chắc loại thuốc đang dùng, hãy hỏi bác sĩ/dược sĩ."
         )
+
+    def _first_context_line(self, context: str) -> str:
+        for line in context.splitlines():
+            clean = line.strip(" -")
+            if clean:
+                return clean
+        return "không tìm thấy ngữ cảnh cụ thể; áp dụng nguyên tắc an toàn thuốc chung."
 
     def _filter_retrieved_for_decision(self, retrieved, decision: AgentDecision):
         filtered = []

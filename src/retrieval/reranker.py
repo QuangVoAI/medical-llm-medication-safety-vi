@@ -15,7 +15,9 @@ def rerank(
     top_k: int = 3,
 ) -> list[tuple[RetrievalDocument, float, str]]:
     query_tokens = set(tokenize(query))
-    category_tokens = set(tokenize(" ".join(category.keywords + category.must_include)))
+    category_tokens = set()
+    if category.label != "general_medication_safety":
+        category_tokens = set(tokenize(" ".join(category.keywords + category.must_include)))
     ranked = []
     for doc, score, source in candidates:
         doc_tokens = set(tokenize(f"{doc.title} {doc.text} {' '.join(doc.tags)}"))
@@ -26,4 +28,3 @@ def rerank(
         ranked.append((doc, final_score, source))
     ranked.sort(key=lambda item: item[1], reverse=True)
     return ranked[:top_k]
-

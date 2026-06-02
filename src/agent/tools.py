@@ -17,6 +17,18 @@ DRUG_ALIASES = {
     "paracetamol": "paracetamol",
     "aspirin": "aspirin",
     "insulin": "insulin",
+    "metformin": "metformin",
+    "doxycycline": "doxycycline",
+    "tetracycline": "tetracycline",
+    "simvastatin": "simvastatin",
+    "fluconazole": "fluconazole",
+    "metronidazole": "metronidazole",
+    "flagyl": "metronidazole",
+    "lithium": "lithium",
+    "diazepam": "diazepam",
+    "alprazolam": "alprazolam",
+    "prednisone": "prednisone",
+    "prednisolone": "prednisolone",
     "ks": "kháng sinh",
     "khang sinh": "kháng sinh",
     "kháng sinh": "kháng sinh",
@@ -43,11 +55,10 @@ def extract_drug_entities(question: str) -> list[str]:
 def rewrite_query(question: str, category: SafetyCategory, entities: list[str]) -> str:
     entity_text = ", ".join(entities) if entities else "không rõ tên thuốc"
     return (
-        f"Câu hỏi an toàn thuốc tiếng Việt. Risk category: {category.label}. "
-        f"Thuốc/nhóm thuốc nhận diện: {entity_text}. Nội dung: {question}"
+        f"{question}. Thuốc/nhóm thuốc nhận diện: {entity_text}. "
+        f"Risk category: {category.label}."
     )
 
 
 def hybrid_retrieve(query: str, category: SafetyCategory, retriever: HybridRetriever):
     return retriever.search(query, category=category, top_k=3)
-

@@ -1,8 +1,10 @@
-# Nguồn Tài Liệu Y Tế Chuẩn Việt Nam
+# Medical Knowledge Source Plan
 
-Tài liệu này liệt kê các nguồn và tham khảo cho knowledge base của RAG medication safety.
+Tài liệu này mô tả **kế hoạch nguồn** và các nhóm tri thức đang được dùng để xây knowledge base cho RAG medication safety.
 
-## Các Hướng Dẫn Được Áp Dụng
+Lưu ý quan trọng: knowledge base hiện tại là **curated educational knowledge base**, chưa phải bản sao đầy đủ từ guideline/drug database chính thức. Các nhãn nguồn trong `data/medical_documents.json` được dùng để định hướng provenance cho demo và cần được kiểm chứng/cập nhật bằng tài liệu chính thức nếu muốn dùng ở mức production.
+
+## Các Nhóm Tri Thức Đang Được Áp Dụng
 
 ### 1. Tương Tác Thuốc Cơ Bản
 
@@ -62,9 +64,9 @@ Tài liệu này liệt kê các nguồn và tham khảo cho knowledge base củ
 | Benzodiazepine | Lo lắng, co giật | Giảm 10% mỗi 1 tuần |
 | Beta-blocker | Tachycardia, angina | Giảm 10-25% mỗi tuần |
 
-## Tài Liệu Được Sử Dụng
+## Nguồn Nên Dùng Để Nâng Cấp Production
 
-### Chuẩn Quốc Tế
+### Chuẩn Quốc Tế Cần Ưu Tiên
 - WHO Model Formulary
 - FDA Drug Interactions Database
 - Therapeutic Guidelines (Australia)
@@ -75,7 +77,7 @@ Tài liệu này liệt kê các nguồn và tham khảo cho knowledge base củ
 - Singapore's Medication Safety Guidelines
 - Thai Pharmaceutical Standards
 
-### Tiêu Chuẩn Việt Nam
+### Tiêu Chuẩn Việt Nam Cần Ưu Tiên
 - Hướng dẫn từ Bộ Y Tế Việt Nam
 - Danh mục thuốc được phép sử dụng tại Việt Nam
 - Tiêu chuẩn Dược sĩ Việt Nam
@@ -108,7 +110,7 @@ KnowledgeSnippet(
 
 ## Ghi Chú Về Độ Chính Xác
 
-- Tất cả các cảnh báo được lấy từ hướng dẫn y tế được công nhận
+- Các cảnh báo hiện tại được viết theo dạng tóm tắt giáo dục và cần được review lại bằng nguồn chính thức trước khi dùng nghiêm túc
 - **Demo-scale dataset**: Các snippet này được thiết kế cho demo, không phải thay thế tư vấn y tế chuyên môn
 - Cập nhật: Cần review định kỳ với chuyên gia dược học Việt Nam
 - **Disclaimer**: Hệ thống này là công cụ giáo dục, không phải chẩn đoán hoặc điều trị

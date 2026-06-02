@@ -4,7 +4,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from src.rag_knowledge import KNOWLEDGE_BASE
+try:
+    from src.rag_knowledge_extended import EXTENDED_KNOWLEDGE_BASE as KNOWLEDGE_BASE
+except ImportError:
+    from src.rag_knowledge import KNOWLEDGE_BASE
 
 
 @dataclass(frozen=True)
@@ -53,4 +56,3 @@ def load_default_documents() -> list[RetrievalDocument]:
         ]
     )
     return docs
-
