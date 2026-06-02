@@ -1,0 +1,22 @@
+{
+  "total_rows": 3195,
+  "unique_sources": 800,
+  "sft_rows": 500,
+  "meddies_rows": 300,
+  "variant_types": {
+    "original": 800,
+    "no_accent": 795,
+    "informal": 1600
+  },
+  "avg_text_length": 2035.4250391236308,
+  "description": "Expanded Vietnamese medication safety pretraining corpus",
+  "task": "Continued Pretraining (Task 1)",
+  "sources": {
+    "sft_answers": "medication_safety_vi_sft.jsonl",
+    "meddies_qa": "Meddies/meddies-qa (qa_pharmaceuticals)"
+  },
+  "augmentation": {
+    "add_no_accent_variant": true,
+    "add_informal_abbreviations": true
+  }
+}
