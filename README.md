@@ -60,6 +60,7 @@ flowchart LR
 | [docs/PRETRAINING_FOUNDATION.md](docs/PRETRAINING_FOUNDATION.md) | Data format, loss, learning rate, and training-observation notes for CPT |
 | [docs/RESULTS_REPORT_TEMPLATE.md](docs/RESULTS_REPORT_TEMPLATE.md) | Template for turning CPT/SFT/DPO metrics into presentation-ready results |
 | [docs/LAB_PRESENTATION.md](docs/LAB_PRESENTATION.md) | What to present for the NLP lab assignment |
+| [docs/SPEAKING_SCRIPT_AND_DEFENSE.md](docs/SPEAKING_SCRIPT_AND_DEFENSE.md) | Vietnamese speaking script and defense answers for lab Q&A |
 | [docs/MEDICAL_LLM_OVERVIEW_BENCHMARKS.md](docs/MEDICAL_LLM_OVERVIEW_BENCHMARKS.md) | Medical LLM overview, models, benchmarks, and references |
 | [docs/PIPELINE.md](docs/PIPELINE.md) | Visual end-to-end pipeline |
 | [slides/medical_llm_medication_safety_sft_dpo.pptx](slides/medical_llm_medication_safety_sft_dpo.pptx) | Vietnamese slide deck for presenting CPT -> SFT -> DPO |
