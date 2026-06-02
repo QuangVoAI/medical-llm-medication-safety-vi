@@ -23,10 +23,10 @@ The assistant is trained and evaluated to avoid unsafe advice such as self-adjus
 
 ```mermaid
 flowchart LR
-    A["Vietnamese medication QA data"] --> B["SFT"]
-    B --> C["SFT adapter"]
-    C --> D["DPO"]
-    D --> E["SFT + DPO adapter"]
+    A["Raw medication text"] --> B["CPT"]
+    B --> C["Vietnamese medication QA data"]
+    C --> D["SFT"]
+    D --> E["DPO"]
     E --> F["Safety evaluation"]
 ```
 
@@ -34,8 +34,8 @@ Training:
 
 ```mermaid
 flowchart LR
-    A["Qwen2.5 Base"] --> B["SFT"]
-    B --> C["SFT adapter"]
+    A["Qwen2.5 Base"] --> B["Continued pretraining"]
+    B --> C["SFT"]
     C --> D["DPO"]
     D --> E["Safer assistant"]
 ```
@@ -58,6 +58,7 @@ flowchart LR
 | [notebooks/medication_safety_vi_sft_dpo_demo.ipynb](notebooks/medication_safety_vi_sft_dpo_demo.ipynb) | SFT + DPO training notebook |
 | [docs/EXECUTION_RUNBOOK.md](docs/EXECUTION_RUNBOOK.md) | Step-by-step run order, metrics to record, and presentation checklist |
 | [docs/COLAB_KAGGLE_RUN_GUIDE.md](docs/COLAB_KAGGLE_RUN_GUIDE.md) | Practical Colab/Kaggle setup, troubleshooting, and result-recording guide |
+| [docs/FINAL_LAB_CHECKLIST.md](docs/FINAL_LAB_CHECKLIST.md) | Last-minute presentation checklist and minimum result requirements |
 | [docs/PRETRAINING_FOUNDATION.md](docs/PRETRAINING_FOUNDATION.md) | Data format, loss, learning rate, and training-observation notes for CPT |
 | [docs/RESULTS_REPORT_TEMPLATE.md](docs/RESULTS_REPORT_TEMPLATE.md) | Template for turning CPT/SFT/DPO metrics into presentation-ready results |
 | [docs/LAB_PRESENTATION.md](docs/LAB_PRESENTATION.md) | What to present for the NLP lab assignment |
