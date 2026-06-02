@@ -61,6 +61,7 @@ flowchart LR
 | [docs/FINAL_LAB_CHECKLIST.md](docs/FINAL_LAB_CHECKLIST.md) | Last-minute presentation checklist and minimum result requirements |
 | [docs/DATASET_CARD.md](docs/DATASET_CARD.md) | Dataset sources, formats, intended use, and limitations |
 | [docs/MODEL_CARD_DRAFT.md](docs/MODEL_CARD_DRAFT.md) | Draft model card covering intended use, risks, evaluation, and limitations |
+| [docs/PRODUCT_EXPERIMENT_ROADMAP.md](docs/PRODUCT_EXPERIMENT_ROADMAP.md) | Roadmap for turning the lab notebooks into a product-style experiment dashboard |
 | [docs/PRETRAINING_FOUNDATION.md](docs/PRETRAINING_FOUNDATION.md) | Data format, loss, learning rate, and training-observation notes for CPT |
 | [docs/RESULTS_REPORT_TEMPLATE.md](docs/RESULTS_REPORT_TEMPLATE.md) | Template for turning CPT/SFT/DPO metrics into presentation-ready results |
 | [docs/OBSERVED_SFT_DEBUG_ANALYSIS.md](docs/OBSERVED_SFT_DEBUG_ANALYSIS.md) | Interprets the observed 10-step SFT debug loss and outputs |
