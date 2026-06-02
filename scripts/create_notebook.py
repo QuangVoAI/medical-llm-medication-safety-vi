@@ -52,7 +52,71 @@ cells = [
     ),
     code(
         """
-        !pip -q install -U "transformers>=4.46.0" "datasets>=3.0.0" "accelerate>=1.1.0" "peft>=0.13.0" "trl>=0.12.0" "bitsandbytes>=0.44.0"
+        %pip install -q "transformers>=4.46.0" "datasets>=3.0.0" "accelerate>=1.1.0" "peft>=0.13.0" "trl>=0.12.0" "bitsandbytes>=0.44.0" --upgrade-strategy only-if-needed
+        """
+    ),
+    md(
+        """
+        ## 0.1. Clone repo và dataset
+
+        Nếu chạy trên Colab/Kaggle, cell này sẽ kéo repo từ GitHub để notebook tìm thấy dataset đã build sẵn.
+
+        Nếu repo đang private, hãy thêm biến môi trường hoặc Kaggle Secret tên `GITHUB_TOKEN`.
+        """
+    ),
+    code(
+        """
+        import os
+        import subprocess
+        from pathlib import Path
+
+        REPO_URL = "https://github.com/QuangVoAI/medical-llm-medication-safety-vi.git"
+
+        if Path("/kaggle/working").exists():
+            PROJECT_DIR = Path("/kaggle/working/medical_llm_medication_safety_vi")
+        elif Path("/content").exists():
+            PROJECT_DIR = Path("/content/medical_llm_medication_safety_vi")
+        else:
+            PROJECT_DIR = Path.cwd() / "medical_llm_medication_safety_vi"
+
+        DATA_FILE = PROJECT_DIR / "data" / "processed" / "medication_safety_vi_sft.jsonl"
+
+        def get_github_token():
+            token = os.environ.get("GITHUB_TOKEN", "").strip()
+            if token:
+                return token
+            try:
+                from kaggle_secrets import UserSecretsClient
+                return UserSecretsClient().get_secret("GITHUB_TOKEN").strip()
+            except Exception:
+                return ""
+
+        def clone_repo_if_needed():
+            if DATA_FILE.exists():
+                print("Dataset đã có:", DATA_FILE)
+                return
+
+            if PROJECT_DIR.exists():
+                print("Folder đã tồn tại nhưng chưa thấy dataset:", PROJECT_DIR)
+                print("Nếu folder này sai, hãy xóa nó rồi chạy lại cell clone.")
+            else:
+                token = get_github_token()
+                clone_url = REPO_URL
+                if token:
+                    clone_url = REPO_URL.replace("https://", f"https://{token}@")
+
+                print("Đang clone repo vào:", PROJECT_DIR)
+                subprocess.run(["git", "clone", clone_url, str(PROJECT_DIR)], check=True)
+
+            if not DATA_FILE.exists():
+                raise FileNotFoundError(
+                    f"Clone xong nhưng vẫn thiếu {DATA_FILE}. "
+                    "Nếu repo private, hãy set GITHUB_TOKEN; hoặc upload cả folder project lên Kaggle/Colab."
+                )
+
+            print("OK, dataset đã sẵn sàng:", DATA_FILE)
+
+        clone_repo_if_needed()
         """
     ),
     md(
@@ -118,6 +182,7 @@ cells = [
                 Path.cwd() / "medical_llm_medication_safety_vi",
                 Path("/content/medical_llm_medication_safety_vi"),
                 Path("/kaggle/working/medical_llm_medication_safety_vi"),
+                Path("/kaggle/input/medical-llm-medication-safety-vi"),
             ]
             for candidate in candidates:
                 if (candidate / "data" / "processed" / "medication_safety_vi_sft.jsonl").exists():
