@@ -62,6 +62,7 @@ flowchart LR
 | [docs/LAB_PRESENTATION.md](docs/LAB_PRESENTATION.md) | What to present for the NLP lab assignment |
 | [docs/MEDICAL_LLM_OVERVIEW_BENCHMARKS.md](docs/MEDICAL_LLM_OVERVIEW_BENCHMARKS.md) | Medical LLM overview, models, benchmarks, and references |
 | [docs/PIPELINE.md](docs/PIPELINE.md) | Visual end-to-end pipeline |
+| [slides/medical_llm_medication_safety_sft_dpo.pptx](slides/medical_llm_medication_safety_sft_dpo.pptx) | Vietnamese slide deck for presenting CPT -> SFT -> DPO |
 | [data/processed/dataset_metadata.json](data/processed/dataset_metadata.json) | Dataset scale and composition |
 | [outputs/evaluation_prompts.jsonl](outputs/evaluation_prompts.jsonl) | Evaluation prompt set |
 | [data/medical_documents.json](data/medical_documents.json) | Extended medication-safety knowledge documents |
