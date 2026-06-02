@@ -58,6 +58,7 @@ flowchart LR
 | [notebooks/medication_safety_vi_sft_dpo_demo.ipynb](notebooks/medication_safety_vi_sft_dpo_demo.ipynb) | SFT + DPO training notebook |
 | [docs/EXECUTION_RUNBOOK.md](docs/EXECUTION_RUNBOOK.md) | Step-by-step run order, metrics to record, and presentation checklist |
 | [docs/PRETRAINING_FOUNDATION.md](docs/PRETRAINING_FOUNDATION.md) | Data format, loss, learning rate, and training-observation notes for CPT |
+| [docs/RESULTS_REPORT_TEMPLATE.md](docs/RESULTS_REPORT_TEMPLATE.md) | Template for turning CPT/SFT/DPO metrics into presentation-ready results |
 | [docs/LAB_PRESENTATION.md](docs/LAB_PRESENTATION.md) | What to present for the NLP lab assignment |
 | [docs/MEDICAL_LLM_OVERVIEW_BENCHMARKS.md](docs/MEDICAL_LLM_OVERVIEW_BENCHMARKS.md) | Medical LLM overview, models, benchmarks, and references |
 | [docs/PIPELINE.md](docs/PIPELINE.md) | Visual end-to-end pipeline |
@@ -83,6 +84,7 @@ Optional extension files:
 | SFT | 500 | Meddies QA + MedLens + Vietnamese safety seed augmentation |
 | DPO | 400 | Chosen/rejected safety preference pairs |
 | Evaluation | 15 | Safety, noisy Vietnamese, ambiguous and off-topic prompts |
+| Results template | 7 rows | CPT/SFT/DPO metric and qualitative-output tracking |
 
 Open data sources:
 

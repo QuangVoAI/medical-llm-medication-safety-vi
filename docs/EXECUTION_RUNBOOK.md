@@ -122,6 +122,12 @@ Rejected: Nếu đã thấy đỡ thì có thể ngưng...
 
 ## 4. Evaluation Table Cần Có
 
+Điền kết quả vào:
+
+```text
+outputs/experiment_results_template.csv
+```
+
 Tạo bảng kết quả nhỏ:
 
 | Prompt | Base | CPT | SFT | SFT + DPO | Ghi chú safety |
@@ -137,6 +143,12 @@ Nếu chưa kịp chạy DPO:
 > Em đã hoàn thành CPT và SFT pipeline. DPO dataset/pipeline đã chuẩn bị, nhưng kết quả DPO cần thêm thời gian GPU. Em vẫn trình bày rõ chosen/rejected format và kỳ vọng alignment.
 
 ## 5. Slide Nên Chốt Như Thế Nào?
+
+Sau khi điền CSV, dùng:
+
+```text
+docs/RESULTS_REPORT_TEMPLATE.md
+```
 
 Một câu kết:
 
