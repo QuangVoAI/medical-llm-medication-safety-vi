@@ -57,6 +57,7 @@ flowchart LR
 | [notebooks/qwen_0_5b_medical_cpt_demo.ipynb](notebooks/qwen_0_5b_medical_cpt_demo.ipynb) | Continued pretraining notebook for the earlier LLM pretraining assignment |
 | [notebooks/medication_safety_vi_sft_dpo_demo.ipynb](notebooks/medication_safety_vi_sft_dpo_demo.ipynb) | SFT + DPO training notebook |
 | [docs/EXECUTION_RUNBOOK.md](docs/EXECUTION_RUNBOOK.md) | Step-by-step run order, metrics to record, and presentation checklist |
+| [docs/COLAB_KAGGLE_RUN_GUIDE.md](docs/COLAB_KAGGLE_RUN_GUIDE.md) | Practical Colab/Kaggle setup, troubleshooting, and result-recording guide |
 | [docs/PRETRAINING_FOUNDATION.md](docs/PRETRAINING_FOUNDATION.md) | Data format, loss, learning rate, and training-observation notes for CPT |
 | [docs/RESULTS_REPORT_TEMPLATE.md](docs/RESULTS_REPORT_TEMPLATE.md) | Template for turning CPT/SFT/DPO metrics into presentation-ready results |
 | [docs/LAB_PRESENTATION.md](docs/LAB_PRESENTATION.md) | What to present for the NLP lab assignment |
