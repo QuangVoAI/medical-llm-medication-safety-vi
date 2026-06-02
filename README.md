@@ -124,6 +124,22 @@ python scripts/score_outputs.py \
   --output outputs/scored_eval.csv
 ```
 
+## Plot Metrics
+
+Generate chart images for the observed SFT debug run:
+
+```bash
+python scripts/plot_experiment_metrics.py
+```
+
+Outputs:
+
+```text
+outputs/charts/sft_debug_loss_curve.png
+outputs/charts/sft_debug_scores_by_prompt.png
+outputs/charts/sft_debug_average_scores.png
+```
+
 ## Smoke Test
 
 Before running GPU experiments or presenting the repo:
