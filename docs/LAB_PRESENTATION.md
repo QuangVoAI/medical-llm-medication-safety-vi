@@ -4,7 +4,7 @@
 
 Đề tài nên được trình bày theo trục:
 
-> Medical LLM for Vietnamese Medication Safety QA: SFT + DPO để trả lời câu hỏi dùng thuốc an toàn hơn.
+> Medical LLM for Vietnamese Medication Safety QA: Continued pretraining -> SFT -> DPO để trả lời câu hỏi dùng thuốc an toàn hơn.
 
 RAG không phải trọng tâm bài này. Nếu nhắc đến, chỉ đặt ở backup slide hoặc future work.
 
@@ -29,24 +29,32 @@ RAG không phải trọng tâm bài này. Nếu nhắc đến, chỉ đặt ở 
    - HealthBench/MedHELM nhấn mạnh safety, usefulness, hội thoại thực tế.
 
 5. **Dataset**
+   - CPT/pretraining: raw text format `{"text": "..."}`.
    - SFT: 500 rows.
    - DPO: 400 preference pairs.
    - Nguồn: Meddies QA, MedLens, seed safety tiếng Việt, informal augmentation.
    - Nói rõ: demo-scale, nhiều row là augmentation/repetition, chưa phải production dataset.
 
-6. **Model And Training**
+6. **Pretraining Foundation**
+   - Dùng `Qwen/Qwen2.5-0.5B`.
+   - Làm continued pretraining/domain-adaptive pretraining, không phải pretrain từ random init.
+   - Objective: causal language modeling, next-token prediction.
+   - Theo dõi: training loss, eval loss, perplexity, generation before/after.
+   - Chi tiết: `docs/PRETRAINING_FOUNDATION.md` và `notebooks/qwen_0_5b_medical_cpt_demo.ipynb`.
+
+7. **Model And Training**
    - Base: `Qwen/Qwen2.5-1.5B-Instruct`.
    - Fallback: `Qwen/Qwen2.5-0.5B-Instruct`.
    - Method: QLoRA/LoRA.
    - SFT: học format trả lời an toàn bằng tiếng Việt.
    - DPO: học ưu tiên câu trả lời an toàn hơn câu trả lời nguy hiểm.
 
-7. **SFT Result**
+8. **SFT Result**
    - Show loss debug hoặc full training loss.
    - Show 2-3 outputs sau SFT.
    - Nói thẳng lỗi: SFT có thể nói đúng format nhưng vẫn hallucinate medical facts.
 
-8. **DPO Result**
+9. **DPO Result**
    - Show chosen/rejected pair.
    - So sánh SFT vs DPO ở các case nguy hiểm:
      - quên liều huyết áp;
@@ -54,12 +62,13 @@ RAG không phải trọng tâm bài này. Nếu nhắc đến, chỉ đặt ở 
      - tự ngưng kháng sinh;
      - uống nhầm thuốc ngủ.
 
-9. **Evaluation**
+10. **Evaluation**
    - Qualitative comparison: Base / SFT / SFT + DPO.
    - Manual safety rubric 0-3.
    - Heuristic evaluator chỉ là proxy, không thay thế chuyên gia y tế.
 
-10. **Conclusion**
+11. **Conclusion**
+    - CPT giúp model quen ngôn ngữ/domain.
     - SFT giúp model học cách trả lời theo format.
     - DPO quan trọng để alignment theo safety.
     - Medical LLM khó vì factuality, uncertainty, safety và domain knowledge.
@@ -77,6 +86,10 @@ RAG không phải trọng tâm bài này. Nếu nhắc đến, chỉ đặt ở 
 **SFT và DPO khác nhau thế nào?**
 
 > SFT dạy model bắt chước câu trả lời mẫu. DPO dạy model thích câu trả lời tốt hơn theo preference. Trong medical domain, DPO quan trọng vì câu trả lời không chỉ cần đúng format mà còn phải an toàn, thận trọng và biết giới hạn.
+
+**CPT/pretraining khác SFT thế nào?**
+
+> CPT học từ raw text bằng next-token prediction để model quen ngôn ngữ và thuật ngữ domain. SFT học từ cặp user-assistant để model biết trả lời câu hỏi theo format mong muốn.
 
 **Benchmark medical LLM có vấn đề gì?**
 

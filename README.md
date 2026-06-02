@@ -54,7 +54,9 @@ flowchart LR
 
 | File | Why it matters |
 |---|---|
+| [notebooks/qwen_0_5b_medical_cpt_demo.ipynb](notebooks/qwen_0_5b_medical_cpt_demo.ipynb) | Continued pretraining notebook for the earlier LLM pretraining assignment |
 | [notebooks/medication_safety_vi_sft_dpo_demo.ipynb](notebooks/medication_safety_vi_sft_dpo_demo.ipynb) | SFT + DPO training notebook |
+| [docs/PRETRAINING_FOUNDATION.md](docs/PRETRAINING_FOUNDATION.md) | Data format, loss, learning rate, and training-observation notes for CPT |
 | [docs/LAB_PRESENTATION.md](docs/LAB_PRESENTATION.md) | What to present for the NLP lab assignment |
 | [docs/MEDICAL_LLM_OVERVIEW_BENCHMARKS.md](docs/MEDICAL_LLM_OVERVIEW_BENCHMARKS.md) | Medical LLM overview, models, benchmarks, and references |
 | [docs/PIPELINE.md](docs/PIPELINE.md) | Visual end-to-end pipeline |
@@ -76,6 +78,7 @@ Optional extension files:
 
 | Part | Rows | Source |
 |---|---:|---|
+| CPT sample | 10+ raw text rows | Medication safety raw text, optionally expanded from SFT answers |
 | SFT | 500 | Meddies QA + MedLens + Vietnamese safety seed augmentation |
 | DPO | 400 | Chosen/rejected safety preference pairs |
 | Evaluation | 15 | Safety, noisy Vietnamese, ambiguous and off-topic prompts |
@@ -87,9 +90,10 @@ Open data sources:
 
 ## Train The Model
 
-Run the notebook on Colab/Kaggle GPU:
+Run the notebooks on Colab/Kaggle GPU:
 
 ```text
+notebooks/qwen_0_5b_medical_cpt_demo.ipynb
 notebooks/medication_safety_vi_sft_dpo_demo.ipynb
 ```
 
@@ -100,7 +104,7 @@ Recommended setup:
 | Base model | `Qwen/Qwen2.5-1.5B-Instruct` |
 | Fallback | `Qwen/Qwen2.5-0.5B-Instruct` |
 | Fine-tuning | QLoRA + LoRA |
-| Stages | Base -> SFT -> DPO -> evaluation |
+| Stages | CPT -> SFT -> DPO -> evaluation |
 
 ## Rebuild Artifacts
 

@@ -1,11 +1,12 @@
 # Pipeline Overview
 
-This document shows the core SFT/DPO flow for the Vietnamese Medication Safety Assistant.
+This document shows the core CPT -> SFT -> DPO flow for the Vietnamese Medication Safety Assistant.
 
 ## 1. Data Construction
 
 ```mermaid
 flowchart TD
+    R["Raw medication-safety text"] --> P["CPT JSONL"]
     A["Meddies QA: Vietnamese pharmaceutical QA"] --> D["SFT JSONL"]
     B["MedLens: interaction/adverse-event signals"] --> C["Vietnamese interaction templates"]
     C --> D
@@ -16,7 +17,7 @@ flowchart TD
     F --> H
 ```
 
-The SFT dataset teaches the assistant to answer in Vietnamese. The DPO dataset teaches preference for safer responses.
+The CPT dataset teaches domain language from raw text. The SFT dataset teaches the assistant to answer in Vietnamese. The DPO dataset teaches preference for safer responses.
 
 ## 2. Vietnamese Robustness
 
@@ -43,19 +44,20 @@ Examples of supported messy inputs:
 
 ```mermaid
 flowchart TD
-    A["Base Qwen2.5-Instruct"] --> B["Baseline generation"]
-    A --> C["SFT on Vietnamese medication QA"]
-    C --> D["SFT adapter"]
-    D --> E["DPO with chosen/rejected safety pairs"]
-    E --> F["SFT + DPO adapter"]
-    B --> G["Comparison table"]
-    D --> G
-    F --> G
+    A["Qwen2.5-0.5B base"] --> B["Continued pretraining on raw medical text"]
+    B --> C["Domain-adapted CPT adapter"]
+    C --> D["SFT on Vietnamese medication QA"]
+    D --> E["SFT adapter"]
+    E --> F["DPO with chosen/rejected safety pairs"]
+    F --> G["SFT + DPO adapter"]
+    A --> H["Comparison table"]
+    E --> H
+    G --> H
 ```
 
 ## 4. Evaluation
 
-Evaluation compares Base, SFT, and SFT + DPO outputs:
+Evaluation compares Base/CPT, SFT, and SFT + DPO outputs:
 
 | Layer | Purpose | File |
 |---|---|---|
@@ -75,7 +77,7 @@ Current prompt groups:
 
 Recommended live walkthrough:
 
-1. Show the training flow: Base -> SFT -> DPO -> evaluation.
+1. Show the training flow: CPT -> SFT -> DPO -> evaluation.
 2. Open `data/processed/dataset_metadata.json` to show the dataset scale and limitations.
 3. Open `notebooks/medication_safety_vi_sft_dpo_demo.ipynb` to show SFT/DPO configs.
 4. Show qualitative outputs for:
