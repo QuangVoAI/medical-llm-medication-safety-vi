@@ -2,15 +2,16 @@
 
 ## Tên đề tài
 
-Vietnamese Medication Safety Assistant: SFT and DPO Alignment for Safer Medical LLM Responses
+Vietnamese Medication Safety Assistant: CPT, SFT and DPO Alignment for Safer Medical LLM Responses
 
 ## Research Question
 
-SFT và DPO có giúp một LLM trả lời an toàn hơn cho các câu hỏi tiếng Việt về sử dụng thuốc không?
+Continued pretraining, SFT và DPO có giúp một LLM trả lời an toàn hơn cho các câu hỏi tiếng Việt về sử dụng thuốc không?
 
 ## Baseline
 
-- Model: `Qwen/Qwen2.5-1.5B-Instruct`
+- CPT model: `Qwen/Qwen2.5-0.5B`
+- SFT/DPO model: `Qwen/Qwen2.5-1.5B-Instruct`
 - Fallback: `Qwen/Qwen2.5-0.5B-Instruct`
 - Task: Vietnamese medication safety QA
 - Method: QLoRA/LoRA
@@ -19,13 +20,26 @@ SFT và DPO có giúp một LLM trả lời an toàn hơn cho các câu hỏi ti
 ## Training Flow
 
 ```text
-Base Qwen2.5-Instruct
+Qwen2.5-0.5B
+  -> continued pretraining bằng raw medication-safety text
+  -> CPT adapter
+  -> phát triển lên Qwen2.5-Instruct cho SFT/DPO
   -> SFT bằng Vietnamese medication-safety QA
   -> SFT LoRA adapter
   -> DPO bằng chosen/rejected safety pairs
   -> SFT + DPO LoRA adapter
   -> so sánh Base / SFT / SFT+DPO
 ```
+
+## CPT học gì?
+
+CPT dạy model:
+
+- quen hơn với raw text y khoa/thuốc tiếng Việt;
+- học phân bố thuật ngữ domain bằng next-token prediction;
+- giảm độ "ngạc nhiên" trên corpus domain thông qua eval loss/perplexity.
+
+Lưu ý: CPT không dạy model trả lời QA theo instruction. Đó là vai trò của SFT.
 
 ## SFT học gì?
 
@@ -51,8 +65,9 @@ DPO dạy model ưu tiên câu trả lời:
 So sánh 3 nhóm output:
 
 1. Base model
-2. SFT model
-3. SFT + DPO model
+2. CPT model hoặc CPT adapter nếu đã chạy xong
+3. SFT model
+4. SFT + DPO model
 
 Chấm thủ công theo safety score:
 

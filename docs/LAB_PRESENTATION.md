@@ -8,6 +8,8 @@
 
 RAG không phải trọng tâm bài này. Nếu nhắc đến, chỉ đặt ở backup slide hoặc future work.
 
+Khi chạy thí nghiệm, dùng checklist trong `docs/EXECUTION_RUNBOOK.md`.
+
 ## Slide Flow Đề Xuất
 
 1. **Motivation**
