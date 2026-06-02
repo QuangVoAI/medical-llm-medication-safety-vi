@@ -120,6 +120,16 @@ python scripts/score_outputs.py \
   --output outputs/scored_eval.csv
 ```
 
+## Smoke Test
+
+Before running GPU experiments or presenting the repo:
+
+```bash
+python scripts/smoke_test_lab_artifacts.py
+```
+
+This checks dataset formats, notebook JSON, required docs/slides, and the heuristic evaluator. It does not train a model.
+
 ## Show This In Lab
 
 1. Open [docs/LAB_PRESENTATION.md](docs/LAB_PRESENTATION.md) for the slide order and speaking notes.
