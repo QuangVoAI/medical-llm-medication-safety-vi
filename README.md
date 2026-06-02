@@ -61,6 +61,7 @@ flowchart LR
 | [docs/FINAL_LAB_CHECKLIST.md](docs/FINAL_LAB_CHECKLIST.md) | Last-minute presentation checklist and minimum result requirements |
 | [docs/PRETRAINING_FOUNDATION.md](docs/PRETRAINING_FOUNDATION.md) | Data format, loss, learning rate, and training-observation notes for CPT |
 | [docs/RESULTS_REPORT_TEMPLATE.md](docs/RESULTS_REPORT_TEMPLATE.md) | Template for turning CPT/SFT/DPO metrics into presentation-ready results |
+| [docs/OBSERVED_SFT_DEBUG_ANALYSIS.md](docs/OBSERVED_SFT_DEBUG_ANALYSIS.md) | Interprets the observed 10-step SFT debug loss and outputs |
 | [docs/LAB_PRESENTATION.md](docs/LAB_PRESENTATION.md) | What to present for the NLP lab assignment |
 | [docs/SPEAKING_SCRIPT_AND_DEFENSE.md](docs/SPEAKING_SCRIPT_AND_DEFENSE.md) | Vietnamese speaking script and defense answers for lab Q&A |
 | [docs/MEDICAL_LLM_OVERVIEW_BENCHMARKS.md](docs/MEDICAL_LLM_OVERVIEW_BENCHMARKS.md) | Medical LLM overview, models, benchmarks, and references |
