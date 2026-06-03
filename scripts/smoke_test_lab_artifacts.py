@@ -21,8 +21,7 @@ from src.evaluator import score_answer
 
 REQUIRED_FILES = [
     "README.md",
-    "notebooks/qwen_0_5b_medical_cpt_demo.ipynb",
-    "notebooks/medication_safety_vi_sft_dpo_demo.ipynb",
+    "notebooks/medical-llm-medication-safety-vi-v2_1.ipynb",
     "data/pretraining/medical_cpt_corpus_sample.jsonl",
     "data/processed/medication_safety_vi_sft.jsonl",
     "data/processed/medication_safety_vi_dpo.jsonl",
@@ -30,12 +29,16 @@ REQUIRED_FILES = [
     "outputs/evaluation_prompts.jsonl",
     "outputs/experiment_results_template.csv",
     "docs/PRETRAINING_FOUNDATION.md",
+    "docs/TRAINING_PREP.md",
+    "docs/TEACHER_STUDENT_PIPELINE.md",
     "docs/MEDICAL_LLM_OVERVIEW_BENCHMARKS.md",
     "docs/LAB_PRESENTATION.md",
     "docs/SPEAKING_SCRIPT_AND_DEFENSE.md",
     "docs/COLAB_KAGGLE_RUN_GUIDE.md",
     "docs/FINAL_LAB_CHECKLIST.md",
     "slides/medical_llm_medication_safety_sft_dpo.pptx",
+    "configs/qwen25_7b_sft.yaml",
+    "configs/qwen25_7b_dpo.yaml",
 ]
 
 
@@ -58,8 +61,7 @@ def check_required_files() -> None:
 
 def check_notebooks() -> None:
     for rel in [
-        "notebooks/qwen_0_5b_medical_cpt_demo.ipynb",
-        "notebooks/medication_safety_vi_sft_dpo_demo.ipynb",
+        "notebooks/medical-llm-medication-safety-vi-v2_1.ipynb",
     ]:
         notebook = json.loads((ROOT / rel).read_text(encoding="utf-8"))
         assert notebook.get("cells"), f"{rel} has no cells"
@@ -72,8 +74,8 @@ def check_datasets() -> None:
     eval_rows = read_jsonl(ROOT / "outputs/evaluation_prompts.jsonl")
 
     assert len(cpt_rows) >= 10, "CPT sample should contain at least 10 rows"
-    assert len(sft_rows) == 500, f"Expected 500 SFT rows, got {len(sft_rows)}"
-    assert len(dpo_rows) == 400, f"Expected 400 DPO rows, got {len(dpo_rows)}"
+    assert len(sft_rows) >= 500, f"Expected at least 500 SFT rows, got {len(sft_rows)}"
+    assert len(dpo_rows) >= 400, f"Expected at least 400 DPO rows, got {len(dpo_rows)}"
     assert len(eval_rows) >= 15, f"Expected at least 15 eval prompts, got {len(eval_rows)}"
 
     assert {"text"} <= set(cpt_rows[0]), "CPT row must contain text"

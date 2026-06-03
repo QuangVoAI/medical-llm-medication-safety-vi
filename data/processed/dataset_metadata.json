@@ -1,12 +1,18 @@
 {
   "task": "Vietnamese Medication Safety Assistant",
-  "sft_rows": 500,
-  "dpo_rows": 400,
+  "sft_rows": 6560,
+  "dpo_rows": 2704,
   "sources": {
-    "meddies_rows": 120,
-    "medlens_rows": 60,
+    "meddies_rows": 200,
+    "medlens_rows": 100,
     "seed_rows_augmented_repeated": 320,
-    "dpo_seed_rows_repeated": 400
+    "dpo_seed_rows_repeated": 400,
+    "extra_sft_files": {
+      "teacher_grounded_sft.jsonl": 5940
+    },
+    "extra_dpo_files": {
+      "teacher_generated_dpo.jsonl": 2304
+    }
   },
   "vietnamese_robustness": [
     "accented and no-accent variants",

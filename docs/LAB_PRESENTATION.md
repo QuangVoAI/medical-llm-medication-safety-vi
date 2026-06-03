@@ -42,12 +42,12 @@ Khi chạy thí nghiệm, dùng checklist trong `docs/EXECUTION_RUNBOOK.md`.
    - Làm continued pretraining/domain-adaptive pretraining, không phải pretrain từ random init.
    - Objective: causal language modeling, next-token prediction.
    - Theo dõi: training loss, eval loss, perplexity, generation before/after.
-   - Chi tiết: `docs/PRETRAINING_FOUNDATION.md` và `notebooks/qwen_0_5b_medical_cpt_demo.ipynb`.
+   - Chi tiết: `docs/PRETRAINING_FOUNDATION.md`.
 
 7. **Model And Training**
-   - Base: `Qwen/Qwen2.5-1.5B-Instruct`.
-   - Fallback: `Qwen/Qwen2.5-0.5B-Instruct`.
+   - Student chính: `Qwen/Qwen2.5-7B-Instruct`.
    - Method: QLoRA/LoRA.
+   - Teacher side: MedGemma / Meditron / grounded sources để sinh thêm SFT/DPO data.
    - SFT: học format trả lời an toàn bằng tiếng Việt.
    - DPO: học ưu tiên câu trả lời an toàn hơn câu trả lời nguy hiểm.
 

@@ -5,7 +5,9 @@ Runbook này dùng khi chạy thí nghiệm và chuẩn bị kết quả báo c�
 ## 0. Luồng Tổng Thể
 
 ```text
-Qwen/Qwen2.5-0.5B
+Medical teacher / grounded sources
+  -> thêm SFT và DPO data chất lượng cao hơn
+Qwen student
   -> Continued pretraining trên raw medication text
   -> SFT trên Vietnamese medication-safety QA
   -> DPO trên chosen/rejected safety pairs
@@ -16,10 +18,13 @@ Nên trình bày theo thứ tự này vì nó nối bài tập pretraining trư�
 
 ## 1. Chạy Continued Pretraining
 
-Notebook:
+Notebook CPT riêng hiện chưa nằm trong repo ở dạng lab-facing chính. Với repo hiện tại, bạn nên:
+
+- trình bày CPT bằng [docs/PRETRAINING_FOUNDATION.md](docs/PRETRAINING_FOUNDATION.md);
+- tập trung train/demonstrate bằng notebook chính:
 
 ```text
-notebooks/qwen_0_5b_medical_cpt_demo.ipynb
+notebooks/medical-llm-medication-safety-vi-v2_1.ipynb
 ```
 
 Mục tiêu:
@@ -52,15 +57,14 @@ Nếu chỉ debug 20 steps, câu nên nói:
 Notebook:
 
 ```text
-notebooks/medication_safety_vi_sft_dpo_demo.ipynb
+notebooks/medical-llm-medication-safety-vi-v2_1.ipynb
 ```
 
 SFT hiện tại:
 
 | Mục | Giá trị |
 |---|---|
-| Base model | `Qwen/Qwen2.5-1.5B-Instruct` |
-| Fallback | `Qwen/Qwen2.5-0.5B-Instruct` |
+| Student chính | `Qwen/Qwen2.5-7B-Instruct` |
 | SFT rows | 500 |
 | Batch size | 1 |
 | Gradient accumulation | 8 |
@@ -94,7 +98,11 @@ Thông tin cần ghi lại:
 
 ## 3. Chạy DPO
 
-DPO dùng cùng notebook SFT/DPO.
+DPO dùng cùng notebook:
+
+```text
+notebooks/medical-llm-medication-safety-vi-v2_1.ipynb
+```
 
 Mục tiêu:
 

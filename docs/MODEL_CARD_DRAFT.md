@@ -32,8 +32,7 @@ Qwen2.5 base
 | Stage | Model |
 |---|---|
 | CPT/pretraining demo | `Qwen/Qwen2.5-0.5B` |
-| SFT/DPO main model | `Qwen/Qwen2.5-1.5B-Instruct` |
-| Low-VRAM fallback | `Qwen/Qwen2.5-0.5B-Instruct` |
+| SFT/DPO main model | `Qwen/Qwen2.5-7B-Instruct` |
 
 Rationale:
 

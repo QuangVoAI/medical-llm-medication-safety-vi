@@ -11,8 +11,7 @@ Continued pretraining, SFT và DPO có giúp một LLM trả lời an toàn hơn
 ## Baseline
 
 - CPT model: `Qwen/Qwen2.5-0.5B`
-- SFT/DPO model: `Qwen/Qwen2.5-1.5B-Instruct`
-- Fallback: `Qwen/Qwen2.5-0.5B-Instruct`
+- SFT/DPO model: `Qwen/Qwen2.5-7B-Instruct`
 - Task: Vietnamese medication safety QA
 - Method: QLoRA/LoRA
 - Evaluation: qualitative + manual safety score

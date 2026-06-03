@@ -24,3 +24,6 @@ outputs/manual_eval_with_rule_rag_baseline.csv
 outputs/scored_rule_rag_baseline.csv
 outputs/manual-medllm/
 slides/artifact-build-manifest.json
+
+# Large external/raw data should stay local
+data/external/raw/

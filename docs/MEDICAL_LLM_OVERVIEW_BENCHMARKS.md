@@ -69,6 +69,19 @@ Thông điệp:
 | HealthBench | 5,000 multi-turn health conversations, physician-written rubrics. | Gần với cách người dùng/bác sĩ thật trò chuyện với LLM, có chấm safety và usefulness theo rubric. |
 | HealthBench Professional | Tập trung task clinician-facing như care consult, writing/documentation, medical research. | Gợi ý hướng benchmark tương lai cho workflow của bác sĩ thật. |
 
+## Benchmark Va Related Work Gan Hon Voi De Tai
+
+| Ten | Vai tro doi voi de tai |
+|---|---|
+| ViMedAQA | Nguon Vietnamese medical QA de mo rong SFT, nhung can loc chi cac case lien quan den medication safety. |
+| VM14K | Benchmark y khoa tieng Viet de dat bai toan vao boi canh Vietnamese medical NLP. |
+| MedSafetyBench | Y tuong cho safety taxonomy, unsafe cases va evaluation beyond factuality. |
+| RxSafeBench | Gan nhat voi medication safety; huu ich cho hard negatives, contraindication, drug-drug interaction va patient risk framing. |
+
+Thong diep:
+
+> Related work gan nhat voi bai cua em khong chi la Medical LLM chung chung, ma la giao diem giua Vietnamese medical QA, medication safety, va safety benchmark.
+
 ## Liên Hệ Với Đề Tài Của Em
 
 Đề tài của em không cố cạnh tranh benchmark lớn. Em dùng một bài toán nhỏ nhưng có ý nghĩa safety:
@@ -84,6 +97,15 @@ Mapping với Medical LLM evaluation:
 | Không khuyên hành vi nguy hiểm | DPO chosen/rejected safety pairs. |
 | Biết escalation | Prompt cases: quá liều, thuốc ngủ, tương tác thuốc, quên liều. |
 | Evaluation | Manual safety rubric 0-3 + qualitative Base/SFT/DPO comparison. |
+
+Mapping related work vao pipeline:
+
+| Thanh phan | Em dung nguon nao |
+|---|---|
+| SFT core | dataset medication safety tieng Viet hien tai |
+| SFT broaden | ViMedAQA + Meddies/MedLens + grounded synthetic QA |
+| DPO design | MedSafetyBench + RxSafeBench la nguon y tuong cho hard negatives va unsafe-but-fluent responses |
+| Benchmark narrative | VM14K cho boi canh tieng Viet; HealthBench/MedSafetyBench/RxSafeBench cho safety evaluation hien dai |
 
 ## Câu Nói Khi Chuyển Sang Demo
 

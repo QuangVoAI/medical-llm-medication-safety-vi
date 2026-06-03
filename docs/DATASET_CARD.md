@@ -47,8 +47,8 @@ uống ks thấy đỡ rồi ngưng luôn được không?
 | Split | Rows | File |
 |---|---:|---|
 | CPT raw text sample | 10+ | `data/pretraining/medical_cpt_corpus_sample.jsonl` |
-| SFT | 500 | `data/processed/medication_safety_vi_sft.jsonl` |
-| DPO | 400 | `data/processed/medication_safety_vi_dpo.jsonl` |
+| SFT | 6560 in current expanded build | `data/processed/medication_safety_vi_sft.jsonl` |
+| DPO | 2704 in current expanded build | `data/processed/medication_safety_vi_dpo.jsonl` |
 | Evaluation prompts | 15 | `outputs/evaluation_prompts.jsonl` |
 
 Metadata file:
@@ -65,6 +65,8 @@ data/processed/dataset_metadata.json
 | MedLens | 60 | Drug interaction/adverse-event style source |
 | Vietnamese safety seeds + augmentation | 320 SFT rows | Medication safety scenarios common in Vietnamese user questions |
 | DPO safety seed pairs + repetition | 400 DPO rows | Chosen/rejected safety preference pairs |
+| Teacher-grounded synthetic QA | 5940 SFT rows in current build | Expanded patient-facing Vietnamese medication safety coverage |
+| Teacher-generated hard negatives | 2304 DPO rows in current build | Unsafe-but-fluent and taxonomy-based preference pairs |
 
 Open data sources referenced in the project:
 
@@ -73,7 +75,7 @@ Open data sources referenced in the project:
 
 Important note:
 
-> A large portion of the dataset comes from seed augmentation and repetition. This is acceptable for a demo-scale lab experiment, but it is not a production-grade medical dataset.
+> The current expanded build is much larger than the original core dataset, but a large portion now comes from synthetic teacher-lite generation plus controlled augmentation. This is useful for a research lab pipeline, but it is still not a production-grade medical dataset.
 
 ## 5. Supported Vietnamese Robustness
 
@@ -168,8 +170,8 @@ Important limitation:
 
 ## 9. Known Limitations
 
-- Dataset is demo-scale, not production-scale.
-- Many rows are generated from a small seed set by augmentation/repetition.
+- Dataset is still research/demo scale, not production-scale.
+- Many rows are generated from a small seed set or from synthetic teacher-lite expansion.
 - DPO pairs are not expert-annotated preference data.
 - Medical factuality is not guaranteed.
 - Some SFT outputs can still hallucinate or provide weak escalation.

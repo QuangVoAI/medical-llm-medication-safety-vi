@@ -24,6 +24,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "data" / "processed"
+GENERATED_DIR = ROOT / "data" / "generated"
 sys.path.insert(0, str(ROOT))
 
 from src.safety_taxonomy import classify_question
@@ -389,13 +390,79 @@ def write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
             handle.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
+def read_jsonl(path: Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    if not path.exists():
+        return rows
+    with path.open("r", encoding="utf-8") as handle:
+        for line in handle:
+            line = line.strip()
+            if not line:
+                continue
+            rows.append(json.loads(line))
+    return rows
+
+
+def load_optional_sft_rows(paths: list[Path]) -> dict[str, list[dict[str, Any]]]:
+    loaded: dict[str, list[dict[str, Any]]] = {}
+    for path in paths:
+        rows = read_jsonl(path)
+        normalized_rows: list[dict[str, Any]] = []
+        for row in rows:
+            if not {"question", "answer"} <= set(row):
+                continue
+            normalized = normalize_dataset_row(
+                {
+                    **row,
+                    "source": row.get("source", f"generated::{path.stem}"),
+                    "topic": row.get("topic", classify_question(row["question"]).label),
+                }
+            )
+            normalized_rows.append(normalized)
+        if normalized_rows:
+            loaded[path.name] = normalized_rows
+    return loaded
+
+
+def load_optional_dpo_rows(paths: list[Path]) -> dict[str, list[dict[str, Any]]]:
+    loaded: dict[str, list[dict[str, Any]]] = {}
+    for path in paths:
+        rows = read_jsonl(path)
+        enriched_rows: list[dict[str, Any]] = []
+        for row in rows:
+            if not {"prompt", "chosen", "rejected"} <= set(row):
+                continue
+            category = classify_question(str(row["prompt"]))
+            enriched_rows.append(
+                {
+                    **row,
+                    "source": row.get("source", f"generated::{path.stem}"),
+                    "topic": row.get("topic", category.label),
+                    "safety_category": row.get("safety_category", category.label),
+                    "risk_level": row.get("risk_level", category.risk_level),
+                    "unsafe_pattern": row.get("unsafe_pattern", category.unsafe_pattern),
+                }
+            )
+        if enriched_rows:
+            loaded[path.name] = enriched_rows
+    return loaded
+
+
 def build(args: argparse.Namespace) -> None:
     random.seed(args.seed)
     meddies_rows = load_meddies(args.meddies_limit, args.seed)
     medlens_rows = load_medlens(args.medlens_limit, args.seed)
     seed_rows = augment_seed_rows(SEED_SFT, args.repeat_seed, args.seed)
+    extra_sft = load_optional_sft_rows(
+        [
+            GENERATED_DIR / "vimedaqa_filtered_sft.jsonl",
+            GENERATED_DIR / "teacher_grounded_sft.jsonl",
+        ]
+    )
 
     sft_rows = meddies_rows + medlens_rows + seed_rows
+    for rows in extra_sft.values():
+        sft_rows.extend(rows)
     random.shuffle(sft_rows)
 
     dpo_rows = []
@@ -417,6 +484,13 @@ def build(args: argparse.Namespace) -> None:
                 }
             )
     dpo_rows = dpo_rows * args.repeat_dpo
+    extra_dpo = load_optional_dpo_rows(
+        [
+            GENERATED_DIR / "teacher_generated_dpo.jsonl",
+        ]
+    )
+    for rows in extra_dpo.values():
+        dpo_rows.extend(rows)
     random.shuffle(dpo_rows)
 
     write_jsonl(OUT_DIR / "medication_safety_vi_sft.jsonl", sft_rows)
@@ -430,7 +504,9 @@ def build(args: argparse.Namespace) -> None:
             "meddies_rows": len(meddies_rows),
             "medlens_rows": len(medlens_rows),
             "seed_rows_augmented_repeated": len(seed_rows),
-            "dpo_seed_rows_repeated": len(dpo_rows),
+            "dpo_seed_rows_repeated": len(SEED_DPO) * 5 * args.repeat_dpo,
+            "extra_sft_files": {name: len(rows) for name, rows in extra_sft.items()},
+            "extra_dpo_files": {name: len(rows) for name, rows in extra_dpo.items()},
         },
         "vietnamese_robustness": [
             "accented and no-accent variants",

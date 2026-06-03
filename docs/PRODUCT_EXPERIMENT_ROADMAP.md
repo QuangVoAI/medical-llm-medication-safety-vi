@@ -78,8 +78,8 @@ Hiển thị bảng:
 | Run | Model | Dataset | Steps/Epoch | LR | Loss start | Loss end | Notes |
 |---|---|---|---|---|---|---|---|
 | CPT debug | Qwen2.5-0.5B | raw text | 20 steps | 5e-5 | ... | ... | before/after generation |
-| SFT debug | Qwen2.5-1.5B-Instruct | SFT 500 | 10 steps | 2e-4 | 2.55 | 1.66 | format improves |
-| DPO debug | Qwen2.5-1.5B-Instruct | DPO 400 | ... | 5e-6 | ... | ... | preference alignment |
+| SFT debug | Qwen2.5-7B-Instruct | SFT expanded | 10 steps | 2e-4 | 2.55 | 1.66 | format improves |
+| DPO debug | Qwen2.5-7B-Instruct | DPO expanded | ... | 5e-6 | ... | ... | preference alignment |
 
 Source file:
 
@@ -199,7 +199,7 @@ high-quality corpus, not just large corpus
 
 ```text
 CPT: Qwen2.5-0.5B
-SFT/DPO: Qwen2.5-1.5B-Instruct
+SFT/DPO: Qwen2.5-7B-Instruct
 ```
 
 ### Better Experiment
@@ -208,8 +208,8 @@ So sánh:
 
 | Model | Vai trò |
 |---|---|
-| Qwen2.5-0.5B-Instruct | low-resource baseline |
-| Qwen2.5-1.5B-Instruct | main lab model |
+| Qwen2.5-0.5B-Instruct | CPT / pretraining baseline |
+| Qwen2.5-7B-Instruct | main lab model |
 | Qwen2.5-3B-Instruct | stronger model nếu GPU cho phép |
 | Medical teacher model | generate/review data, không nhất thiết fine-tune |
 
@@ -239,8 +239,7 @@ scripts/
   smoke_test_lab_artifacts.py
   score_outputs.py
 notebooks/
-  qwen_0_5b_medical_cpt_demo.ipynb
-  medication_safety_vi_sft_dpo_demo.ipynb
+  medical-llm-medication-safety-vi-v2_1.ipynb
 app.py
 ```
 

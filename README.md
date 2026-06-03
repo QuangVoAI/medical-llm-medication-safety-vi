@@ -40,6 +40,37 @@ flowchart LR
     D --> E["Safer assistant"]
 ```
 
+End-to-end data strategy:
+
+```mermaid
+flowchart TD
+    A["Core SFT dataset<br/>medication_safety_vi_sft.jsonl"] --> D["Merged SFT training set"]
+    B["ViMedAQA<br/>filtered to medication safety"] --> D
+    C["Grounded synthetic QA<br/>Meddies / MedLens / leaflets / guideline"] --> D
+    D --> E["SFT on Qwen base"]
+    E --> F["Base SFT model"]
+    G["Hard negatives<br/>unsafe-but-fluent answers"] --> H["DPO pairs"]
+    I["Taxonomy-based safety errors<br/>dose / interaction / overdose / pregnancy / insulin"] --> H
+    F --> J["DPO alignment"]
+    H --> J
+    J --> K["Safer Vietnamese medication assistant"]
+    K --> L["Evaluation<br/>Base vs SFT vs DPO"]
+```
+
+Safety taxonomy:
+
+```mermaid
+mindmap
+  root((Medication Safety QA))
+    drug_interaction
+    missed_dose
+    overdose
+    antibiotics_adherence
+    pregnancy_child_elderly
+    insulin_safety
+    general_medication_safety
+```
+
 ## Key Features
 
 | Feature | What it demonstrates |
@@ -54,12 +85,14 @@ flowchart LR
 
 | File | Why it matters |
 |---|---|
-| [notebooks/qwen_0_5b_medical_cpt_demo.ipynb](notebooks/qwen_0_5b_medical_cpt_demo.ipynb) | Continued pretraining notebook for the earlier LLM pretraining assignment |
-| [notebooks/medication_safety_vi_sft_dpo_demo.ipynb](notebooks/medication_safety_vi_sft_dpo_demo.ipynb) | SFT + DPO training notebook |
+| [notebooks/medical-llm-medication-safety-vi-v2_1.ipynb](notebooks/medical-llm-medication-safety-vi-v2_1.ipynb) | Main notebook for dataset inspection, SFT, DPO, and comparison outputs |
 | [docs/EXECUTION_RUNBOOK.md](docs/EXECUTION_RUNBOOK.md) | Step-by-step run order, metrics to record, and presentation checklist |
 | [docs/COLAB_KAGGLE_RUN_GUIDE.md](docs/COLAB_KAGGLE_RUN_GUIDE.md) | Practical Colab/Kaggle setup, troubleshooting, and result-recording guide |
+| [docs/TRAINING_PREP.md](docs/TRAINING_PREP.md) | Concrete pre-run checklist, training configs, and output artifacts to collect |
+| [docs/TEACHER_STUDENT_PIPELINE.md](docs/TEACHER_STUDENT_PIPELINE.md) | Clean teacher-student design for scaling SFT/DPO with stronger medical supervision |
 | [docs/FINAL_LAB_CHECKLIST.md](docs/FINAL_LAB_CHECKLIST.md) | Last-minute presentation checklist and minimum result requirements |
 | [docs/DATASET_CARD.md](docs/DATASET_CARD.md) | Dataset sources, formats, intended use, and limitations |
+| [docs/DATASET_STRATEGY.md](docs/DATASET_STRATEGY.md) | Expanded SFT/DPO data strategy, taxonomy, and benchmark narrative |
 | [docs/MODEL_CARD_DRAFT.md](docs/MODEL_CARD_DRAFT.md) | Draft model card covering intended use, risks, evaluation, and limitations |
 | [docs/PRODUCT_EXPERIMENT_ROADMAP.md](docs/PRODUCT_EXPERIMENT_ROADMAP.md) | Roadmap for turning the lab notebooks into a product-style experiment dashboard |
 | [docs/PRETRAINING_FOUNDATION.md](docs/PRETRAINING_FOUNDATION.md) | Data format, loss, learning rate, and training-observation notes for CPT |
@@ -72,6 +105,8 @@ flowchart LR
 | [slides/medical_llm_medication_safety_sft_dpo.pptx](slides/medical_llm_medication_safety_sft_dpo.pptx) | Vietnamese slide deck for presenting CPT -> SFT -> DPO |
 | [data/processed/dataset_metadata.json](data/processed/dataset_metadata.json) | Dataset scale and composition |
 | [outputs/evaluation_prompts.jsonl](outputs/evaluation_prompts.jsonl) | Evaluation prompt set |
+| [configs/qwen25_7b_sft.yaml](configs/qwen25_7b_sft.yaml) | Main Kaggle SFT config for the stronger Qwen student |
+| [configs/qwen25_7b_dpo.yaml](configs/qwen25_7b_dpo.yaml) | Main Kaggle DPO config for the stronger Qwen student |
 | [src/safety_taxonomy.py](src/safety_taxonomy.py) | Risk categories |
 | [src/evaluator.py](src/evaluator.py) | Heuristic evaluation rubric |
 
@@ -79,15 +114,15 @@ Optional extension files:
 
 | File | Why it exists |
 |---|---|
-| [app.py](app.py) | Interactive Gradio UI for a trained/merged model, with a transparent template fallback |
+| [app.py](app.py) | Interactive Gradio UI for inspecting a trained/merged model or a transparent safety template |
 
 ## Dataset Snapshot
 
 | Part | Rows | Source |
 |---|---:|---|
 | CPT sample | 10+ raw text rows | Medication safety raw text, optionally expanded from SFT answers |
-| SFT | 500 | Meddies QA + MedLens + Vietnamese safety seed augmentation |
-| DPO | 400 | Chosen/rejected safety preference pairs |
+| SFT | 6560 in current expanded build | Core SFT + Meddies + MedLens + teacher-grounded Vietnamese expansions |
+| DPO | 2704 in current expanded build | Seed preference pairs + teacher-generated hard negatives |
 | Evaluation | 15 | Safety, noisy Vietnamese, ambiguous and off-topic prompts |
 | Results template | 7 rows | CPT/SFT/DPO metric and qualitative-output tracking |
 
@@ -101,22 +136,36 @@ Open data sources:
 Run the notebooks on Colab/Kaggle GPU:
 
 ```text
-notebooks/qwen_0_5b_medical_cpt_demo.ipynb
-notebooks/medication_safety_vi_sft_dpo_demo.ipynb
+notebooks/medical-llm-medication-safety-vi-v2_1.ipynb
+```
+
+Before training, read:
+
+```text
+docs/TRAINING_PREP.md
+docs/TEACHER_STUDENT_PIPELINE.md
 ```
 
 Recommended setup:
 
 | Component | Choice |
 |---|---|
-| Base model | `Qwen/Qwen2.5-1.5B-Instruct` |
-| Fallback | `Qwen/Qwen2.5-0.5B-Instruct` |
+| Base model | `Qwen/Qwen2.5-7B-Instruct` |
 | Fine-tuning | QLoRA + LoRA |
 | Stages | CPT -> SFT -> DPO -> evaluation |
+
+Recommended outputs to save:
+
+- SFT training loss curve
+- DPO training loss curve
+- 5 qualitative prompts: Base / SFT / DPO
+- one small score table for safety, escalation, uncertainty
+- filled `outputs/experiment_results_template.csv`
 
 ## Rebuild Artifacts
 
 ```bash
+python scripts/prepare_teacher_student_workspace.py
 python scripts/build_medication_safety_datasets.py
 python scripts/create_eval_artifacts.py
 python scripts/score_outputs.py \
@@ -170,9 +219,9 @@ Người nhà tôi uống nhầm nhiều viên thuốc ngủ, nên chờ xem có
 
 This repo is intentionally honest about its limits:
 
-- Demo-scale dataset, not production data.
-- Many training rows come from seed augmentation and repetition.
-- DPO pairs are designed for a lab demo, not expert-annotated clinical preference data.
+- Still not production data, even though the current train build is much larger.
+- A large portion of the expanded training set comes from synthetic teacher-lite generation and controlled augmentation.
+- DPO pairs are still research/demo preference data, not expert-annotated clinical preference data.
 - The evaluator is a heuristic proxy, not medical or NLG quality evaluation.
 - The assistant is not a clinical decision, diagnosis, or prescribing system.
 - RAG is discussed only as future work, not implemented as the core assignment deliverable.

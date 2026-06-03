@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "notebooks" / "medication_safety_vi_sft_dpo_demo.ipynb"
+OUT = ROOT / "notebooks" / "medical-llm-medication-safety-vi-v2_1.ipynb"
 
 
 def md(text: str) -> dict:
@@ -27,7 +27,7 @@ cells = [
         """
         # Vietnamese Medication Safety Assistant: SFT + DPO
 
-        Notebook này fine-tune một LLM nhỏ cho bài toán:
+        Notebook này fine-tune một LLM cho bài toán:
 
         > Trợ lý tiếng Việt hỗ trợ trả lời câu hỏi về **an toàn sử dụng thuốc**.
 
@@ -40,6 +40,13 @@ cells = [
           -> so sánh Base / SFT / SFT + DPO
         ```
 
+        Build train hiện tại:
+
+        - SFT: 6560 rows
+        - DPO: 2704 pairs
+
+        Student model được chốt là `Qwen/Qwen2.5-7B-Instruct`.
+
         Đây là demo học thuật cho lab NLP, **không phải hệ thống tư vấn y tế thật**.
         """
     ),
@@ -47,7 +54,7 @@ cells = [
         """
         ## 0. Cài thư viện
 
-        Khuyến nghị chạy trên Colab/Kaggle GPU. Nếu thiếu VRAM, đổi model sang `Qwen/Qwen2.5-0.5B-Instruct`.
+        Khuyến nghị chạy trên Colab/Kaggle GPU. Notebook này được chốt cho student model `Qwen/Qwen2.5-7B-Instruct`.
         """
     ),
     code(
@@ -125,7 +132,7 @@ cells = [
 
         **Model architecture**
 
-        - Base model: `Qwen/Qwen2.5-1.5B-Instruct`
+        - Base model: `Qwen/Qwen2.5-7B-Instruct`
         - Kiểu model: decoder-only causal language model
         - Input format: chat template `system -> user -> assistant`
         - Fine-tuning: LoRA/QLoRA, không train full model
@@ -140,6 +147,7 @@ cells = [
         - `Meddies/meddies-qa`, config `qa_pharmaceuticals`
         - `ASHu2/medlens`
         - Seed tiếng Việt tự viết cho các tình huống safety phổ biến ở Việt Nam
+        - Teacher-grounded synthetic SFT và DPO expansions đã được build vào tập train hiện tại
 
         **Nâng cấp tiếng Việt**
 
@@ -167,8 +175,7 @@ cells = [
         random.seed(SEED)
         torch.manual_seed(SEED)
 
-        MODEL_NAME = "Qwen/Qwen2.5-1.5B-Instruct"
-        FALLBACK_MODEL_NAME = "Qwen/Qwen2.5-0.5B-Instruct"
+        MODEL_NAME = "Qwen/Qwen2.5-7B-Instruct"
         LOAD_IN_4BIT = True
         MAX_SEQ_LEN = 768
 
@@ -220,9 +227,15 @@ cells = [
         dpo_rows = read_jsonl(DPO_PATH)
         eval_rows = read_jsonl(EVAL_PATH) if EVAL_PATH.exists() else []
 
+        from collections import Counter
+
         print("SFT rows:", len(sft_rows))
         print("DPO rows:", len(dpo_rows))
         print("Eval rows:", len(eval_rows))
+        print("\\nPhân bố SFT safety_category:")
+        print(Counter(row.get("safety_category", "unknown") for row in sft_rows))
+        print("\\nPhân bố DPO safety_category:")
+        print(Counter(row.get("safety_category", "unknown") for row in dpo_rows))
         print("\\nVí dụ SFT:")
         print("Q:", sft_rows[0]["question"])
         print("A:", sft_rows[0]["answer"][:500])
@@ -259,15 +272,8 @@ cells = [
                 trust_remote_code=True,
             )
 
-        try:
-            tokenizer = load_tokenizer(MODEL_NAME)
-            model = load_model(MODEL_NAME)
-        except Exception as exc:
-            print("Fallback sang model 0.5B:", exc)
-            MODEL_NAME = FALLBACK_MODEL_NAME
-            tokenizer = load_tokenizer(MODEL_NAME)
-            model = load_model(MODEL_NAME)
-
+        tokenizer = load_tokenizer(MODEL_NAME)
+        model = load_model(MODEL_NAME)
         model.config.use_cache = False
         print("Đã load:", MODEL_NAME)
         """
@@ -361,7 +367,7 @@ cells = [
             learning_rate=2e-4,
             num_train_epochs=1,
             logging_steps=5,
-            save_steps=50,
+            save_steps=100,
             save_total_limit=1,
             fp16=torch.cuda.is_available() and not torch.cuda.is_bf16_supported(),
             bf16=torch.cuda.is_available() and torch.cuda.is_bf16_supported(),
@@ -406,10 +412,10 @@ cells = [
             output_dir=DPO_OUT,
             per_device_train_batch_size=1,
             gradient_accumulation_steps=8,
-            learning_rate=5e-5,
+            learning_rate=5e-6,
             num_train_epochs=1,
             logging_steps=5,
-            save_steps=50,
+            save_steps=100,
             save_total_limit=1,
             beta=0.1,
             max_length=MAX_SEQ_LEN,

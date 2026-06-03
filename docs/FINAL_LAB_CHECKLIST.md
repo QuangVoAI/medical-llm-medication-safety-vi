@@ -11,8 +11,8 @@ Mở trước các file này:
 | 1 | `slides/medical_llm_medication_safety_sft_dpo.pptx` | slide trình bày chính |
 | 2 | `docs/SPEAKING_SCRIPT_AND_DEFENSE.md` | lời thoại và Q&A phòng thủ |
 | 3 | `docs/COLAB_KAGGLE_RUN_GUIDE.md` | nếu cần giải thích cách chạy GPU |
-| 4 | `notebooks/qwen_0_5b_medical_cpt_demo.ipynb` | show bài pretraining/CPT |
-| 5 | `notebooks/medication_safety_vi_sft_dpo_demo.ipynb` | show SFT/DPO |
+| 4 | `docs/PRETRAINING_FOUNDATION.md` | show bài pretraining/CPT theo hướng continued pretraining |
+| 5 | `notebooks/medical-llm-medication-safety-vi-v2_1.ipynb` | show SFT/DPO notebook chính |
 | 6 | `outputs/experiment_results_template.csv` | bảng điền kết quả loss/output |
 | 7 | `data/processed/dataset_metadata.json` | show dataset scale và limitation |
 
@@ -34,7 +34,7 @@ Nếu chỉ có SFT mà chưa kịp DPO:
 
 Trước khi tắt notebook, ghi lại:
 
-- model dùng: `Qwen/Qwen2.5-1.5B-Instruct` hay fallback `0.5B`;
+- model dùng: `Qwen/Qwen2.5-7B-Instruct`;
 - số epoch hoặc max steps;
 - learning rate;
 - batch size và gradient accumulation;

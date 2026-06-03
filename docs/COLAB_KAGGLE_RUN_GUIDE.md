@@ -7,10 +7,11 @@ Tài liệu này dùng khi bạn thật sự chạy thí nghiệm trên GPU. M�
 Chạy theo thứ tự:
 
 ```text
-1. qwen_0_5b_medical_cpt_demo.ipynb
-2. medication_safety_vi_sft_dpo_demo.ipynb
-3. điền outputs/experiment_results_template.csv
-4. cập nhật slide bằng kết quả thật nếu có thời gian
+1. scripts/prepare_teacher_student_workspace.py
+2. scripts/build_medication_safety_datasets.py
+3. notebooks/medical-llm-medication-safety-vi-v2_1.ipynb
+4. điền outputs/experiment_results_template.csv
+5. cập nhật slide bằng kết quả thật nếu có thời gian
 ```
 
 Ý nghĩa:
@@ -30,8 +31,7 @@ Runtime -> Change runtime type -> GPU
 2. Upload hoặc mở notebook:
 
 ```text
-notebooks/qwen_0_5b_medical_cpt_demo.ipynb
-notebooks/medication_safety_vi_sft_dpo_demo.ipynb
+notebooks/medical-llm-medication-safety-vi-v2_1.ipynb
 ```
 
 3. Chạy cell `0. Cài thư viện`.
@@ -71,7 +71,14 @@ Settings -> Internet -> On
 GITHUB_TOKEN
 ```
 
-5. Chạy notebook từ đầu. Cell clone sẽ đưa repo vào:
+5. Chạy lần lượt:
+
+```bash
+python scripts/prepare_teacher_student_workspace.py
+python scripts/build_medication_safety_datasets.py
+```
+
+6. Sau đó mở notebook chính và chạy từ đầu. Repo sẽ nằm ở:
 
 ```text
 /kaggle/working/medical_llm_medication_safety_vi
@@ -251,7 +258,7 @@ Nói với thầy:
 
 - [ ] Chụp hoặc copy bảng training loss.
 - [ ] Copy 3-5 output Base/SFT/DPO.
-- [ ] Ghi rõ model dùng: 1.5B hay fallback 0.5B.
+- [ ] Ghi rõ model dùng: `Qwen/Qwen2.5-7B-Instruct`.
 - [ ] Ghi rõ số step/epoch.
 - [ ] Ghi rõ learning rate.
 - [ ] Ghi rõ dataset: CPT raw text, SFT 500 rows, DPO 400 pairs.

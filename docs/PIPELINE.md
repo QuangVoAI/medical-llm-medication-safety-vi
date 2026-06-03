@@ -44,13 +44,14 @@ Examples of supported messy inputs:
 
 ```mermaid
 flowchart TD
-    A["Qwen2.5-0.5B base"] --> B["Continued pretraining on raw medical text"]
-    B --> C["Domain-adapted CPT adapter"]
-    C --> D["SFT on Vietnamese medication QA"]
+    A["Medical teacher models / grounded sources"] --> B["Teacher-generated SFT & DPO data"]
+    C["Qwen student base"] --> D["SFT on Vietnamese medication QA"]
+    B --> D
     D --> E["SFT adapter"]
     E --> F["DPO with chosen/rejected safety pairs"]
+    B --> F
     F --> G["SFT + DPO adapter"]
-    A --> H["Comparison table"]
+    C --> H["Comparison table"]
     E --> H
     G --> H
 ```
@@ -79,7 +80,7 @@ Recommended live walkthrough:
 
 1. Show the training flow: CPT -> SFT -> DPO -> evaluation.
 2. Open `data/processed/dataset_metadata.json` to show the dataset scale and limitations.
-3. Open `notebooks/medication_safety_vi_sft_dpo_demo.ipynb` to show SFT/DPO configs.
+3. Open `notebooks/medical-llm-medication-safety-vi-v2_1.ipynb` to show SFT/DPO configs.
 4. Show qualitative outputs for:
 
 ```text
